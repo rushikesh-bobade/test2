@@ -42,44 +42,48 @@ A loop is present in the list, and it is removed.
 
 ## Solution
 
-**Language:** Python  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:41:21.586Z  
+**Submitted:** 2026-07-07T21:42:20.926Z  
 
-```py
-class Solution:
-    def removeLoop(self, head):
-        if head is None:
-            return
+```java
 
-        slow = head
-        fast = head
+        // Detect loop
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
 
-        # Detect loop
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+            if (slow == fast) {
+                break;
+            }
+        }
 
-            if slow == fast:
-                break
-        else:
-            return  # No loop
+        // No loop exists
+        if (slow != fast) {
+            return;
+        }
 
-        # Find start of loop
-        slow = head
+        // Find the starting point of loop
+        slow = head;
 
-        if slow == fast:
-            # Loop starts at head
-            while fast.next != slow:
-                fast = fast.next
-        else:
-            while slow.next != fast.next:
-                slow = slow.next
-                fast = fast.next
+        // If loop starts at head
+        if (slow == fast) {
+            while (fast.next != slow) {
+                fast = fast.next;
+            }
+        } else {
+            // Move both pointers until they reach the node before loop start
+            while (slow.next != fast.next) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+        }
 
-        # Remove loop
-        fast.next = None
+        // Remove loop
+        fast.next = null;
+    }
+}
 ```
 
 ---
