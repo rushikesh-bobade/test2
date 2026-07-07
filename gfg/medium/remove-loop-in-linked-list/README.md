@@ -42,48 +42,48 @@ A loop is present in the list, and it is removed.
 
 ## Solution
 
-**Language:** Java  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:42:20.926Z  
+**Submitted:** 2026-07-07T21:43:15.501Z  
 
-```java
-
+```cpp
         // Detect loop
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
 
             if (slow == fast) {
                 break;
             }
         }
 
-        // No loop exists
+        // No loop present
         if (slow != fast) {
             return;
         }
 
-        // Find the starting point of loop
+        // Find start of loop
         slow = head;
 
-        // If loop starts at head
+        // Loop starts at head
         if (slow == fast) {
-            while (fast.next != slow) {
-                fast = fast.next;
+            while (fast->next != slow) {
+                fast = fast->next;
             }
-        } else {
-            // Move both pointers until they reach the node before loop start
-            while (slow.next != fast.next) {
-                slow = slow.next;
-                fast = fast.next;
+        } 
+        else {
+            // Move both pointers until they reach node before loop start
+            while (slow->next != fast->next) {
+                slow = slow->next;
+                fast = fast->next;
             }
         }
 
         // Remove loop
-        fast.next = null;
+        fast->next = nullptr;
     }
-}
+};
 ```
 
 ---
