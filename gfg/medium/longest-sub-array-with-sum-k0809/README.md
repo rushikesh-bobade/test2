@@ -33,18 +33,17 @@ Explanation: No subarray with sum = 5 is present in arr[].
 
 ## Solution
 
-**Language:** C#  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:02:44.712Z  
+**Submitted:** 2026-07-07T21:01:18.903Z  
 
-```cs
-class Solution {
-    public int longestSubarray(int[] arr, int k) {
-        // code here
-        
-    }
-}
+```py
+class Solution:
+    def longestSubarray(self, arr, k):  
+        # code here
+    
+
 ```
 
 ---
