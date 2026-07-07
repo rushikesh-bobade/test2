@@ -35,40 +35,41 @@ Output: ["a","b","c"]
 
 ## Solution
 
-**Language:** Python  
-**Runtime:** 0 ms  
-**Memory:** 19.4 MB  
-**Submitted:** 2026-07-07T21:34:58.061Z  
+**Language:** C++  
+**Runtime:** 0 ms (beats 100.00%)  
+**Memory:** 9.7 MB (beats 14.04%)  
+**Submitted:** 2026-07-07T21:33:44.217Z  
 
-```py
-class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
-        if not digits:
-            return []
+```cpp
+class Solution {
+public:
+    vector<string> ans;
+    
+    vector<string> mp = {
+        "", "", "abc", "def", "ghi",
+        "jkl", "mno", "pqrs", "tuv", "wxyz"
+    };
 
-        mapping = {
-            "2": "abc",
-            "3": "def",
-            "4": "ghi",
-            "5": "jkl",
-            "6": "mno",
-            "7": "pqrs",
-            "8": "tuv",
-            "9": "wxyz"
+    void backtrack(string &digits, int index, string current) {
+        if (index == digits.size()) {
+            ans.push_back(current);
+            return;
         }
 
-        result = []
+        string letters = mp[digits[index] - '0'];
 
-        def backtrack(index, current):
-            if index == len(digits):
-                result.append(current)
-                return
+        for (char ch : letters) {
+            backtrack(digits, index + 1, current + ch);
+        }
+    }
 
-            for ch in mapping[digits[index]]:
-                backtrack(index + 1, current + ch)
+    vector<string> letterCombinations(string digits) {
+        if (digits.empty()) return {};
 
-        backtrack(0, "")
-        return result
+        backtrack(digits, 0, "");
+        return ans;
+    }
+};
 ```
 
 ---
