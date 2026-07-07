@@ -35,41 +35,40 @@ Output: ["a","b","c"]
 
 ## Solution
 
-**Language:** C++  
+**Language:** Python  
 **Runtime:** 0 ms  
-**Memory:** 8.3 MB  
-**Submitted:** 2026-07-07T21:33:39.108Z  
+**Memory:** 19.4 MB  
+**Submitted:** 2026-07-07T21:34:58.061Z  
 
-```cpp
-class Solution {
-public:
-    vector<string> ans;
-    
-    vector<string> mp = {
-        "", "", "abc", "def", "ghi",
-        "jkl", "mno", "pqrs", "tuv", "wxyz"
-    };
+```py
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
 
-    void backtrack(string &digits, int index, string current) {
-        if (index == digits.size()) {
-            ans.push_back(current);
-            return;
+        mapping = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz"
         }
 
-        string letters = mp[digits[index] - '0'];
+        result = []
 
-        for (char ch : letters) {
-            backtrack(digits, index + 1, current + ch);
-        }
-    }
+        def backtrack(index, current):
+            if index == len(digits):
+                result.append(current)
+                return
 
-    vector<string> letterCombinations(string digits) {
-        if (digits.empty()) return {};
+            for ch in mapping[digits[index]]:
+                backtrack(index + 1, current + ch)
 
-        backtrack(digits, 0, "");
-        return ans;
-    }
-};
+        backtrack(0, "")
+        return result
 ```
 
 ---
