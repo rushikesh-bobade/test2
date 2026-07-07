@@ -45,50 +45,28 @@ Output: 1
 
 ## Solution
 
-**Language:** Java  
-**Runtime:** 12 ms (beats 75.80%)  
-**Memory:** 46.1 MB (beats 77.00%)  
-**Submitted:** 2026-07-07T20:48:29.723Z  
+**Language:** Python  
+**Runtime:** 0 ms  
+**Memory:** 19.3 MB  
+**Submitted:** 2026-07-07T20:52:35.203Z  
 
-```java
-class Solution {
-    public int numberOfSubstrings(String s) {
-        int[] last = {-1, -1, -1};
-        int ans = 0;
+```py
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        freq = [0, 0, 0]
+        left = 0
+        ans = 0
 
-        for (int i = 0; i < s.length(); i++) {
-            last[s.charAt(i) - 'a'] = i;
-            ans += Math.min(last[0], Math.min(last[1], last[2])) + 1;
-        }
+        for right in range(len(s)):
+            freq[ord(s[right]) - ord('a')] += 1
 
-        return ans;
-    }
-}
+            while freq[0] > 0 and freq[1] > 0 and freq[2] > 0:
+                freq[ord(s[left]) - ord('a')] -= 1
+                left += 1
 
+            ans += left
 
-/*
-class Solution {
-    public int numberOfSubstrings(String s) {
-        int n = s.length();
-        int[] freq = new int[3];
-
-        int left = 0;
-        int ans = 0;
-
-        for (int right = 0; right < n; right++) {
-            freq[s.charAt(right) - 'a']++;
-
-            while (freq[0] > 0 && freq[1] > 0 && freq[2] > 0) {
-                ans += (n - right);
-                freq[s.charAt(left) - 'a']--;
-                left++;
-            }
-        }
-
-        return ans;
-    }
-}
-*/
+        return ans
 ```
 
 ---
