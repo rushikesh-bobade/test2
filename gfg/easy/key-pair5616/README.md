@@ -34,30 +34,31 @@ Explanation: No pair is possible as only one element is present in arr[]
 
 ## Solution
 
-**Language:** C++  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:10:53.184Z  
+**Submitted:** 2026-07-07T21:11:48.537Z  
 
-```cpp
+```java
+import java.util.HashSet;
+
 class Solution {
-  public:
-    bool twoSum(vector<int>& arr, int target) {
-        unordered_set<int> seen;
+    boolean twoSum(int arr[], int target) {
+        HashSet<Integer> seen = new HashSet<>();
 
         for (int num : arr) {
             int needed = target - num;
 
-            if (seen.find(needed) != seen.end()) {
+            if (seen.contains(needed)) {
                 return true;
             }
 
-            seen.insert(num);
+            seen.add(num);
         }
 
         return false;
     }
-};
+}
 ```
 
 ---
