@@ -36,70 +36,67 @@ The next $n$ lines contain an integer each, the value that needs to be inserted 
 
 ## Solution
 
-**Language:** Java  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:36:00.862Z  
+**Submitted:** 2026-07-07T21:37:17.045Z  
 
-```java
-import java.io.*;
-import java.util.*;
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
 
-public class Solution {
+class Node {
+public:
+    int data;
+    Node* next;
 
-    static class Node {
+    Node(int data) {
+        this->data = data;
+        this->next = nullptr;
+    }
+};
+
+Node* insertAtTail(Node* head, int data) {
+    Node* newNode = new Node(data);
+
+    if (head == nullptr) {
+        return newNode;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+
+    return head;
+}
+
+void printList(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << endl;
+        head = head->next;
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    Node* head = nullptr;
+
+    for (int i = 0; i < n; i++) {
         int data;
-        Node next;
+        cin >> data;
 
-        Node(int data) {
-            this.data = data;
-            this.next = null;
-        }
+        head = insertAtTail(head, data);
     }
 
-    public static Node insertAtTail(Node head, int data) {
-        Node newNode = new Node(data);
+    printList(head);
 
-        if (head == null) {
-            return newNode;
-        }
-
-        Node current = head;
-
-        while (current.next != null) {
-            current = current.next;
-        }
-
-        current.next = newNode;
-
-        return head;
-    }
-
-    public static void printList(Node head) {
-        Node current = head;
-
-        while (current != null) {
-            System.out.println(current.data);
-            current = current.next;
-        }
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-
-        Node head = null;
-
-        for (int i = 0; i < n; i++) {
-            int data = sc.nextInt();
-            head = insertAtTail(head, data);
-        }
-
-        printList(head);
-
-        sc.close();
-    }
+    return 0;
 }
 
 ```
