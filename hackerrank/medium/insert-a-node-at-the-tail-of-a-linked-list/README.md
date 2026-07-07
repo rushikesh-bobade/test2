@@ -36,68 +36,46 @@ The next $n$ lines contain an integer each, the value that needs to be inserted 
 
 ## Solution
 
-**Language:** C++  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:37:17.045Z  
+**Submitted:** 2026-07-07T21:38:53.403Z  
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+```js
 
-class Node {
-public:
-    int data;
-    Node* next;
 
-    Node(int data) {
-        this->data = data;
-        this->next = nullptr;
-    }
-};
+// Complete the insertNodeAtTail function below.
 
-Node* insertAtTail(Node* head, int data) {
-    Node* newNode = new Node(data);
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode next;
+ * }
+ *
+ */
+function insertNodeAtTail(head, data) {
+    const newNode = new SinglyLinkedListNode(data);
 
-    if (head == nullptr) {
+    // If linked list is empty
+    if (head === null) {
         return newNode;
     }
 
-    Node* temp = head;
+    // Traverse to the last node
+    let current = head;
 
-    while (temp->next != nullptr) {
-        temp = temp->next;
+    while (current.next !== null) {
+        current = current.next;
     }
 
-    temp->next = newNode;
+    // Insert new node at tail
+    current.next = newNode;
 
     return head;
 }
 
-void printList(Node* head) {
-    while (head != nullptr) {
-        cout << head->data << endl;
-        head = head->next;
-    }
-}
-
-int main() {
-    int n;
-    cin >> n;
-
-    Node* head = nullptr;
-
-    for (int i = 0; i < n; i++) {
-        int data;
-        cin >> data;
-
-        head = insertAtTail(head, data);
-    }
-
-    printList(head);
-
-    return 0;
-}
 
 ```
 
