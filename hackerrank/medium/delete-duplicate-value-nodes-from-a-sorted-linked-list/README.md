@@ -48,61 +48,77 @@ Each of the next $n$ lines contains an integer, the $data$ value for each of the
 
 ## Solution
 
-**Language:** C++  
+**Language:** TypeScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T20:49:43.625Z  
+**Submitted:** 2026-07-07T20:51:38.653Z  
 
-```cpp
-#include <bits/stdc++.h>
+```ts
+'use strict';
 
-using namespace std;
+import { WriteStream, createWriteStream } from "fs";
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-string ltrim(const string &);
-string rtrim(const string &);
+let inputString: string = '';
+let inputLines: string[] = [];
+let currentLine: number = 0;
+
+process.stdin.on('data', function(inputStdin: string): void {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function(): void {
+    inputLines = inputString.split('\n');
+    inputString = '';
+
+    main();
+});
+
+function readLine(): string {
+    return inputLines[currentLine++];
+}
 
 class SinglyLinkedListNode {
-    public:
-        int data;
-        SinglyLinkedListNode *next;
+    data: number;
+    next: SinglyLinkedListNode | null;
 
-        SinglyLinkedListNode(int node_data) {
-            this->data = node_data;
-            this->next = nullptr;
-        }
+    constructor(nodeData: number) {
+        this.data = nodeData;
+        this.next = null;
+    }
 };
 
 class SinglyLinkedList {
-    public:
-        SinglyLinkedListNode *head;
-        SinglyLinkedListNode *tail;
+    head: SinglyLinkedListNode | null;
+    tail: SinglyLinkedListNode | null;
 
-        SinglyLinkedList() {
-            this->head = nullptr;
-            this->tail = nullptr;
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    insertNode(nodeData: number): void {
+        const node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail!.next = node;
         }
 
-        void insert_node(int node_data) {
-            SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
-
-            if (!this->head) {
-                this->head = node;
-            } else {
-                this->tail->next = node;
-            }
-
-            this->tail = node;
-        }
+        this.tail = node;
+    }
 };
 
-void print_singly_linked_list(SinglyLinkedListNode* node, string sep, ofstream& fout) {
-    while (node) {
-        fout << node->data;
+function printSinglyLinkedList(node: SinglyLinkedListNode | null, sep: string, ws: WriteStream): void {
+    while (node != null) {
+        ws.write(String(node.data));
 
-        node = node->next;
+        node = node.next;
 
-        if (node) {
-            fout << sep;
+        if (node != null) {
+            ws.write(sep);
         }
     }
 }
@@ -118,85 +134,53 @@ void print_singly_linked_list(SinglyLinkedListNode* node, string sep, ofstream& 
  * For your reference:
  *
  * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode* next;
- * };
+ *     number data;
+ *     SinglyLinkedListNode next;
+ * }
  *
  */
 
-SinglyLinkedListNode* removeDuplicates(SinglyLinkedListNode* head) {
-    if (head == nullptr)
-        return head;
+function removeDuplicates(llist: SinglyLinkedListNode): SinglyLinkedListNode {
+    if (llist == null) {
+        return llist;
+    }
 
-    SinglyLinkedListNode* current = head;
+    let current: SinglyLinkedListNode | null = llist;
 
-    while (current->next != nullptr) {
-        if (current->data == current->next->data) {
-            current->next = current->next->next;
+    while (current != null && current.next != null) {
+        if (current.data === current.next.data) {
+            // Remove duplicate node
+            current.next = current.next.next;
         } else {
-            current = current->next;
+            current = current.next;
         }
     }
 
-    return head;
+    return llist;
 }
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
+function main() {
+    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
 
-    string t_temp;
-    getline(cin, t_temp);
+    const t: number = parseInt(readLine().trim(), 10);
 
-    int t = stoi(ltrim(rtrim(t_temp)));
+    for (let tItr: number = 0; tItr < t; tItr++) {
+        let llist: SinglyLinkedList = new SinglyLinkedList();
 
-    for (int t_itr = 0; t_itr < t; t_itr++) {
-        SinglyLinkedList* llist = new SinglyLinkedList();
+        const llistCount: number = parseInt(readLine().trim(), 10);
 
-        string llist_count_temp;
-        getline(cin, llist_count_temp);
+        for (let i: number = 0; i < llistCount; i++) {
+            const llistItem: number = parseInt(readLine().trim(), 10);
 
-        int llist_count = stoi(ltrim(rtrim(llist_count_temp)));
-
-        for (int i = 0; i < llist_count; i++) {
-            string llist_item_temp;
-            getline(cin, llist_item_temp);
-
-            int llist_item = stoi(ltrim(rtrim(llist_item_temp)));
-
-            llist->insert_node(llist_item);
+            llist.insertNode(llistItem);
         }
 
-        SinglyLinkedListNode* llist1 = removeDuplicates(llist->head);
+        const llist1: SinglyLinkedListNode = removeDuplicates(llist.head);
 
-        print_singly_linked_list(llist1, " ", fout);
-        fout << "\n";
+        printSinglyLinkedList(llist1, ' ', ws);
+        ws.write('\n');
     }
 
-    fout.close();
-
-    return 0;
-}
-
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
+    ws.end();
 }
 
 ```
