@@ -33,17 +33,45 @@ Explanation: No subarray with sum = 5 is present in arr[].
 
 ## Solution
 
-**Language:** Python  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:01:18.903Z  
+**Submitted:** 2026-07-07T21:05:10.728Z  
 
-```py
-class Solution:
-    def longestSubarray(self, arr, k):  
-        # code here
-    
+```js
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @returns {number}
+ */
+class Solution {
+    longestSubarray(arr, k) {
+        let map = new Map();
+        let sum = 0;
+        let maxLen = 0;
 
+        for (let i = 0; i < arr.length; i++) {
+            sum += arr[i];
+
+            // Subarray from index 0 to i
+            if (sum === k) {
+                maxLen = i + 1;
+            }
+
+            // Check if prefix sum (sum - k) exists
+            if (map.has(sum - k)) {
+                maxLen = Math.max(maxLen, i - map.get(sum - k));
+            }
+
+            // Store first occurrence only
+            if (!map.has(sum)) {
+                map.set(sum, i);
+            }
+        }
+
+        return maxLen;
+    }
+}
 ```
 
 ---
