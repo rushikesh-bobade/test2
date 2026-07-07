@@ -34,16 +34,23 @@ Explanation: No pair is possible as only one element is present in arr[]
 
 ## Solution
 
-**Language:** Python  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:12:56.505Z  
+**Submitted:** 2026-07-07T21:16:14.084Z  
 
-```py
-class Solution:
-    def twoSum(self, arr, target):
-        # code here
+```js
+/**
+ * @param {number[]} arr
+ * @param {number} target
+ * @return {boolean}
+ */
+class Solution {
+    twoSum(arr, target) {
+        // code here
         
+    }
+}
 ```
 
 ---
