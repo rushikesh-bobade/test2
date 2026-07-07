@@ -33,39 +33,16 @@ Explanation: No subarray with sum = 5 is present in arr[].
 
 ## Solution
 
-**Language:** Java  
+**Language:** C#  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:00:22.933Z  
+**Submitted:** 2026-07-07T21:02:44.712Z  
 
-```java
+```cs
 class Solution {
     public int longestSubarray(int[] arr, int k) {
-        HashMap<Long, Integer> map = new HashMap<>();
+        // code here
         
-        long sum = 0;
-        int maxLen = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-
-            // Subarray from index 0 to i
-            if (sum == k) {
-                maxLen = i + 1;
-            }
-
-            // If (sum - k) exists, a subarray with sum k is found
-            if (map.containsKey(sum - k)) {
-                maxLen = Math.max(maxLen, i - map.get(sum - k));
-            }
-
-            // Store first occurrence only
-            if (!map.containsKey(sum)) {
-                map.put(sum, i);
-            }
-        }
-
-        return maxLen;
     }
 }
 ```
