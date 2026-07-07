@@ -34,31 +34,16 @@ Explanation: No pair is possible as only one element is present in arr[]
 
 ## Solution
 
-**Language:** Java  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-07T21:11:48.537Z  
+**Submitted:** 2026-07-07T21:12:56.505Z  
 
-```java
-import java.util.HashSet;
-
-class Solution {
-    boolean twoSum(int arr[], int target) {
-        HashSet<Integer> seen = new HashSet<>();
-
-        for (int num : arr) {
-            int needed = target - num;
-
-            if (seen.contains(needed)) {
-                return true;
-            }
-
-            seen.add(num);
-        }
-
-        return false;
-    }
-}
+```py
+class Solution:
+    def twoSum(self, arr, target):
+        # code here
+        
 ```
 
 ---
