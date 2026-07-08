@@ -34,32 +34,39 @@ Explanation: The longest subarray with sum equals to 0 is [0, -4, 3, 1, 0]
 
 ## Solution
 
-**Language:** Python  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:40:42.125Z  
+**Submitted:** 2026-07-08T14:42:07.066Z  
 
-```py
-class Solution:
-    def maxLength(self, arr):
-        prefix_sum = 0
-        max_len = 0
-        first_index = {}
-
-        for i, num in enumerate(arr):
-            prefix_sum += num
-
-            # Subarray from index 0 to i has sum 0
-            if prefix_sum == 0:
-                max_len = i + 1
-
-            # If prefix sum was seen before, the middle part has sum 0
-            if prefix_sum in first_index:
-                max_len = max(max_len, i - first_index[prefix_sum])
-            else:
-                first_index[prefix_sum] = i
-
-        return max_len
+```java
+class Solution {
+    int maxLength(int arr[]) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        int sum = 0;
+        int maxLen = 0;
+        
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            
+            // Subarray from index 0 to i has sum 0
+            if (sum == 0) {
+                maxLen = i + 1;
+            }
+            
+            // Same prefix sum found earlier
+            if (map.containsKey(sum)) {
+                maxLen = Math.max(maxLen, i - map.get(sum));
+            } else {
+                // Store first occurrence only
+                map.put(sum, i);
+            }
+        }
+        
+        return maxLen;
+    }
+}
 ```
 
 ---
