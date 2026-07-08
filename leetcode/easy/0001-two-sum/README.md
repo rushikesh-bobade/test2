@@ -52,12 +52,12 @@ Output: [0,1]
 
 ## Solution
 
-**Language:** Java  
+**Language:** C++  
 **Runtime:** 0 ms  
 **Memory:** 19.4 MB  
-**Submitted:** 2026-07-08T13:53:24.746Z  
+**Submitted:** 2026-07-08T13:54:31.905Z  
 
-```java
+```cpp
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         seen = {}
