@@ -45,30 +45,31 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 
 ## Solution
 
-**Language:** Go  
-**Runtime:** 2 ms (beats 80.74%)  
-**Memory:** 5 MB (beats 53.01%)  
-**Submitted:** 2026-07-08T14:09:58.457Z  
+**Language:** Java  
+**Runtime:** 5 ms (beats 86.62%)  
+**Memory:** 45.5 MB (beats 77.82%)  
+**Submitted:** 2026-07-08T14:10:54.789Z  
 
-```go
-func lengthOfLongestSubstring(s string) int {
-    charIndex := make(map[byte]int)
-    left := 0
-    maxLength := 0
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int maxLength = 0;
 
-    for right := 0; right < len(s); right++ {
-        if index, found := charIndex[s[right]]; found && index >= left {
-            left = index + 1
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+
+            if (map.containsKey(ch) && map.get(ch) >= left) {
+                left = map.get(ch) + 1;
+            }
+
+            map.put(ch, right);
+            maxLength = Math.max(maxLength, right - left + 1);
         }
 
-        charIndex[s[right]] = right
-
-        if right-left+1 > maxLength {
-            maxLength = right - left + 1
-        }
+        return maxLength;
     }
-
-    return maxLength
 }
 ```
 
