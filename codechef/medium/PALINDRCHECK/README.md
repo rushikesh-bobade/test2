@@ -66,18 +66,14 @@ fun is Science Data
 
 ## Solution
 
-**Language:** Python  
+**Language:** TypeScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:33:06.982Z  
+**Submitted:** 2026-07-08T14:34:10.367Z  
 
-```py
-def reverseWords(s: str) -> str:
-    words = s.split()
+```ts
+print("Hello, world!")
 
-    words.reverse()
-
-    return " ".join(words)
 ```
 
 ---
