@@ -66,26 +66,34 @@ fun is Science Data
 
 ## Solution
 
-**Language:** Java  
+**Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:30:33.627Z  
+**Submitted:** 2026-07-08T14:32:37.025Z  
 
-```java
-public static String reverseWords(String s) {
-    String[] words = s.trim().split("\\s+");
+```c_cpp
+string reverseWords(string s) {
+    vector<string> words;
+    string word;
 
-    StringBuilder result = new StringBuilder();
+    stringstream ss(s);
 
-    for (int i = words.length - 1; i >= 0; i--) {
-        result.append(words[i]);
-
-        if (i != 0) {
-            result.append(" ");
-        }
+    while (ss >> word) {
+        words.push_back(word);
     }
 
-    return result.toString();
+    reverse(words.begin(), words.end());
+
+    string result;
+
+    for (int i = 0; i < words.size(); i++) {
+        if (i > 0) {
+            result += " ";
+        }
+        result += words[i];
+    }
+
+    return result;
 }
 ```
 
