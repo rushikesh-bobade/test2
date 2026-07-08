@@ -66,14 +66,19 @@ fun is Science Data
 
 ## Solution
 
-**Language:** TypeScript  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:34:10.367Z  
+**Submitted:** 2026-07-08T14:36:10.782Z  
 
-```ts
-print("Hello, world!")
+```js
+function reverseWords(s) {
+    const words = s.trim().split(/\s+/);
 
+    words.reverse();
+
+    return words.join(" ");
+}
 ```
 
 ---
