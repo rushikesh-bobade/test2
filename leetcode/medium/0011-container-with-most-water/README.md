@@ -41,31 +41,34 @@ Output: 1
 
 ## Solution
 
-**Language:** Python  
-**Runtime:** 59 ms (beats 52.11%)  
-**Memory:** 29.7 MB (beats 36.99%)  
-**Submitted:** 2026-07-08T15:48:03.797Z  
+**Language:** TypeScript  
+**Runtime:** 3 ms (beats 36.66%)  
+**Memory:** 63.3 MB (beats 85.52%)  
+**Submitted:** 2026-07-08T15:49:36.999Z  
 
-```py
-class Solution:
-    def maxArea(self, height: List[int]) -> int:
-        left = 0
-        right = len(height) - 1
-        max_water = 0
+```ts
+function maxArea(height: number[]): number {
+    let left = 0;
+    let right = height.length - 1;
+    let maxWater = 0;
 
-        while left < right:
-            width = right - left
-            current_height = min(height[left], height[right])
-            area = width * current_height
+    while (left < right) {
+        const width = right - left;
+        const currentHeight = Math.min(height[left], height[right]);
+        const area = width * currentHeight;
 
-            max_water = max(max_water, area)
+        maxWater = Math.max(maxWater, area);
 
-            if height[left] < height[right]:
-                left += 1
-            else:
-                right -= 1
+        // Move the pointer with smaller height
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
 
-        return max_water
+    return maxWater;
+}
 ```
 
 ---
