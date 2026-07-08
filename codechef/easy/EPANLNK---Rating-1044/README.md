@@ -53,19 +53,34 @@ Output
 
 ## Solution
 
-**Language:** Python  
+**Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:16:44.788Z  
+**Submitted:** 2026-07-08T13:18:13.386Z  
 
-```py
-t = int(input())
+```c_cpp
+#include <bits/stdc++.h>
+using namespace std;
 
-while t > 0:
-    s = input()
-    # Your code goes here
-    t -= 1
+int main() {
+    int t;
+    cin >> t;
 
+    while (t--) {
+        string s;
+        cin >> s;
+
+        int remainder = 0;
+
+        for (char c : s) {
+            remainder = (remainder * 10 + (c - '0')) % 20;
+        }
+
+        cout << remainder << endl;
+    }
+
+    return 0;
+}
 ```
 
 ---
