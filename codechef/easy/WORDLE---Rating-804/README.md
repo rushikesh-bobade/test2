@@ -74,39 +74,44 @@ GGBBG
 
 ## Solution
 
-**Language:** c_cpp  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:37:18.560Z  
+**Submitted:** 2026-07-08T14:38:12.832Z  
 
-```c_cpp
-#include <bits/stdc++.h>
-using namespace std;
+```java
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-int main() {
-	int t;
-	cin>>t;
-	while(t--){
-	    string s;
-	    cin>>s;
-	    string T;
-	    cin>>T;
-	    
-	    string m="";
-        for(int i=0;i<s.length();i++){
-            if(s[i]==T[i]){
-                m+="G";
-            }else{
-                m+="B";
+class Codechef
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Scanner sc = new Scanner(System.in);
+
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            String S = sc.next();
+            String T = sc.next();
+
+            StringBuilder M = new StringBuilder();
+
+            for (int i = 0; i < 5; i++) {
+                if (S.charAt(i) == T.charAt(i)) {
+                    M.append('G');
+                } else {
+                    M.append('B');
+                }
             }
+
+            System.out.println(M.toString());
         }
-	    
-	    cout<<m<<endl;
-	    
-	}
 
+        sc.close();
+    }
 }
-
 ```
 
 ---
