@@ -33,49 +33,69 @@ Explanation: Repeating number is 1 and the missing number is 5.
 
 ## Solution
 
-**Language:** Python  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:23:45.476Z  
+**Submitted:** 2026-07-08T13:25:29.505Z  
 
-```py
-class Solution:
-    def findTwoElement(self, arr):
-        n = len(arr)
+```js
+/**
+ * @param {number[]} arr
+ * @returns {number[]}
+ */
+class Solution {
+    findTwoElement(arr) {
+        const n = arr.length;
 
-        xor_val = 0
+        let xorVal = 0;
 
-        # XOR all array elements and numbers from 1 to n
-        for num in arr:
-            xor_val ^= num
+        // XOR all array elements
+        for (let num of arr) {
+            xorVal ^= num;
+        }
 
-        for i in range(1, n + 1):
-            xor_val ^= i
+        // XOR numbers from 1 to n
+        for (let i = 1; i <= n; i++) {
+            xorVal ^= i;
+        }
 
-        # Find rightmost set bit
-        set_bit = xor_val & -xor_val
+        // Get rightmost set bit
+        let setBit = xorVal & -xorVal;
 
-        x = 0
-        y = 0
+        let x = 0;
+        let y = 0;
 
-        # Divide numbers into two groups
-        for num in arr:
-            if num & set_bit:
-                x ^= num
-            else:
-                y ^= num
+        // Divide array elements into two groups
+        for (let num of arr) {
+            if (num & setBit) {
+                x ^= num;
+            } else {
+                y ^= num;
+            }
+        }
 
-        for i in range(1, n + 1):
-            if i & set_bit:
-                x ^= i
-            else:
-                y ^= i
+        // Divide numbers 1 to n into two groups
+        for (let i = 1; i <= n; i++) {
+            if (i & setBit) {
+                x ^= i;
+            } else {
+                y ^= i;
+            }
+        }
 
-        # Determine which one is repeating
-        if x in arr:
-            return [x, y]
-        else:
-            return [y, x]
+        // Find which is repeating and which is missing
+        let count = 0;
+        for (let num of arr) {
+            if (num === x) count++;
+        }
+
+        if (count === 2) {
+            return [x, y];
+        } else {
+            return [y, x];
+        }
+    }
+}
 ```
 
 ---
