@@ -1,28 +1,19 @@
-#include <bits/stdc++.h>
-using namespace std;
+t = int(input())
 
-int main() {
-    int t;
-    cin >> t;
+while t > 0:
+    x = input()
+    y = input()
 
-    while (t--) {
-        string x, y;
-        cin >> x >> y;
+    possible = True
 
-        bool possible = true;
+    for i in range(len(x)):
+        if x[i] != '?' and y[i] != '?' and x[i] != y[i]:
+            possible = False
+            break
 
-        for (int i = 0; i < x.length(); i++) {
-            if (x[i] != '?' && y[i] != '?' && x[i] != y[i]) {
-                possible = false;
-                break;
-            }
-        }
+    if possible:
+        print("Yes")
+    else:
+        print("No")
 
-        if (possible)
-            cout << "Yes" << endl;
-        else
-            cout << "No" << endl;
-    }
-
-    return 0;
-}
+    t -= 1
