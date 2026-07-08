@@ -1,14 +1,11 @@
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        int mn=0;
-        Map<Integer,Integer>mpp=new HashMap<>();
-        for(int i=0;i<nums.length;i++){
-            mn=target-nums[i];
-            if(mpp.containsKey(mn)){
-                return new int[] {mpp.get(mn),i};
-            }
-            mpp.put(nums[i],i);
-        }
-        return new int[] {-1,-1};
-    }
-}
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen = {}
+
+        for i, num in enumerate(nums):
+            complement = target - num
+
+            if complement in seen:
+                return [seen[complement], i]
+
+            seen[num] = i
