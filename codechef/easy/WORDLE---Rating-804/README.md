@@ -74,44 +74,42 @@ GGBBG
 
 ## Solution
 
-**Language:** Java  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:39:06.718Z  
+**Submitted:** 2026-07-08T14:40:06.895Z  
 
-```java
-import java.util.*;
-import java.lang.*;
-import java.io.*;
+```js
+function Wordle(tests) {
+    let t = parseInt(tests[0]);
+    let result = [];
 
-class Codechef
-{
-    public static void main (String[] args) throws java.lang.Exception
-    {
-        Scanner sc = new Scanner(System.in);
+    for (let i = 1; i < tests.length; i += 2) {
+        const s = tests[i];
+        const guess = tests[i + 1];
 
-        int t = sc.nextInt();
+        let ans = "";
 
-        while (t-- > 0) {
-            String S = sc.next();
-            String T = sc.next();
-
-            StringBuilder M = new StringBuilder();
-
-            for (int i = 0; i < 5; i++) {
-                if (S.charAt(i) == T.charAt(i)) {
-                    M.append('G');
-                } else {
-                    M.append('B');
-                }
+        for (let j = 0; j < 5; j++) {
+            if (s[j] === guess[j]) {
+                ans += "G";
+            } else {
+                ans += "B";
             }
-
-            System.out.println(M.toString());
         }
 
-        sc.close();
+        result.push(ans);
     }
+
+    console.log(result.join("\n"));
 }
+
+// Input related code. Please do not change. 
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function(input) {
+    const tests = input.trim().split('\n');
+    Wordle(tests);
+});
 ```
 
 ---
