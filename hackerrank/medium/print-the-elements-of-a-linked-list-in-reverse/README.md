@@ -50,38 +50,126 @@ The input of each test case is as follows:
 
 ## Solution
 
-**Language:** Python  
+**Language:** TypeScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T12:12:11.918Z  
+**Submitted:** 2026-07-08T12:13:43.015Z  
 
-```py
+```ts
+'use strict';
 
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-#
-# Complete the 'reversePrint' function below.
-#
-# The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
-#
+let inputString: string = '';
+let inputLines: string[] = [];
+let currentLine: number = 0;
 
-#
-# For your reference:
-#
-# SinglyLinkedListNode:
-#     int data
-#     SinglyLinkedListNode next
-#
-#
+process.stdin.on('data', function(inputStdin: string): void {
+    inputString += inputStdin;
+});
 
-def reversePrint(llist):
-    stack = []
+process.stdin.on('end', function(): void {
+    inputLines = inputString.split('\n');
+    inputString = '';
 
-    while llist:
-        stack.append(llist.data)
-        llist = llist.next
+    main();
+});
 
-    while stack:
-        print(stack.pop())
+function readLine(): string {
+    return inputLines[currentLine++];
+}
+
+class SinglyLinkedListNode {
+    data: number;
+    next: SinglyLinkedListNode | null;
+
+    constructor(nodeData: number) {
+        this.data = nodeData;
+        this.next = null;
+    }
+};
+
+class SinglyLinkedList {
+    head: SinglyLinkedListNode | null;
+    tail: SinglyLinkedListNode | null;
+
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    insertNode(nodeData: number): void {
+        const node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail!.next = node;
+        }
+
+        this.tail = node;
+    }
+};
+
+function printSinglyLinkedList(node: SinglyLinkedListNode | null, sep: string): void {
+    while (node != null) {
+        process.stdout.write(String(node.data));
+
+        node = node.next;
+
+        if (node != null) {
+            process.stdout.write(sep);
+        }
+    }
+}
+
+/*
+ * Complete the 'reversePrint' function below.
+ *
+ * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+ */
+
+/*
+ * For your reference:
+ *
+ * SinglyLinkedListNode {
+ *     number data;
+ *     SinglyLinkedListNode next;
+ * }
+ *
+ */
+
+function reversePrint(llist: SinglyLinkedListNode): void {
+    const stack: number[] = [];
+
+    while (llist != null) {
+        stack.push(llist.data);
+        llist = llist.next!;
+    }
+
+    while (stack.length > 0) {
+        console.log(stack.pop());
+    }
+}
+
+function main() {
+    const tests: number = parseInt(readLine().trim(), 10);
+
+    for (let testsItr: number = 0; testsItr < tests; testsItr++) {
+        let llist: SinglyLinkedList = new SinglyLinkedList();
+
+        const llistCount: number = parseInt(readLine().trim(), 10);
+
+        for (let i: number = 0; i < llistCount; i++) {
+            const llistItem: number = parseInt(readLine().trim(), 10);
+
+            llist.insertNode(llistItem);
+        }
+
+        reversePrint(llist.head);
+    }
+}
 
 ```
 
