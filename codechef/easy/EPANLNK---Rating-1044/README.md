@@ -53,32 +53,33 @@ Output
 
 ## Solution
 
-**Language:** Java  
+**Language:** C#  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:19:29.389Z  
+**Submitted:** 2026-07-08T13:20:32.737Z  
 
-```java
-import java.util.Scanner;
+```cs
+using System;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int t = scanner.nextInt();
+public class Test
+{
+    public static void Main()
+    {
+        int t = int.Parse(Console.ReadLine());
 
-        while (t-- > 0) {
-            String s = scanner.next();
+        while (t-- > 0)
+        {
+            string s = Console.ReadLine();
 
             int remainder = 0;
 
-            for (int i = 0; i < s.length(); i++) {
-                remainder = (remainder * 10 + (s.charAt(i) - '0')) % 20;
+            foreach (char c in s)
+            {
+                remainder = (remainder * 10 + (c - '0')) % 20;
             }
 
-            System.out.println(remainder);
+            Console.WriteLine(remainder);
         }
-
-        scanner.close();
     }
 }
 ```
