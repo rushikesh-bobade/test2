@@ -50,145 +50,133 @@ The input of each test case is as follows:
 
 ## Solution
 
-**Language:** C++  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T12:09:42.247Z  
+**Submitted:** 2026-07-08T12:10:41.849Z  
 
-```cpp
-#include <bits/stdc++.h>
-
-using namespace std;
-
-string ltrim(const string &);
-string rtrim(const string &);
+```java
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 class SinglyLinkedListNode {
-    public:
-        int data;
-        SinglyLinkedListNode *next;
+    public int data;
+    public SinglyLinkedListNode next;
 
-        SinglyLinkedListNode(int node_data) {
-            this->data = node_data;
-            this->next = nullptr;
-        }
-};
+    public SinglyLinkedListNode(int nodeData) {
+        this.data = nodeData;
+        this.next = null;
+    }
+}
 
 class SinglyLinkedList {
-    public:
-        SinglyLinkedListNode *head;
-        SinglyLinkedListNode *tail;
+    public SinglyLinkedListNode head;
+    public SinglyLinkedListNode tail;
 
-        SinglyLinkedList() {
-            this->head = nullptr;
-            this->tail = nullptr;
+    public SinglyLinkedList() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    public void insertNode(int nodeData) {
+        SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
         }
 
-        void insert_node(int node_data) {
-            SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
+        this.tail = node;
+    }
+}
 
-            if (!this->head) {
-                this->head = node;
-            } else {
-                this->tail->next = node;
+class SinglyLinkedListPrintHelper {
+    public static void printList(SinglyLinkedListNode node, String sep) {
+        while (node != null) {
+            System.out.print(node.data);
+
+            node = node.next;
+
+            if (node != null) {
+                System.out.print(sep);
             }
-
-            this->tail = node;
-        }
-};
-
-void print_singly_linked_list(SinglyLinkedListNode* node, string sep) {
-    while (node) {
-        cout << node->data;
-
-        node = node->next;
-
-        if (node) {
-            cout << sep;
         }
     }
 }
 
-/*
- * Complete the 'reversePrint' function below.
- *
- * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
- */
+class Result {
 
-/*
- * For your reference:
- *
- * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode* next;
- * };
- *
- */
+    /*
+     * Complete the 'reversePrint' function below.
+     *
+     * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+     */
 
-void reversePrint(SinglyLinkedListNode* llist) {
-    stack<int> st;
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode {
+     *     int data;
+     *     SinglyLinkedListNode next;
+     * }
+     *
+     */
 
-    while (llist != nullptr) {
-        st.push(llist->data);
-        llist = llist->next;
+public static void reversePrint(SinglyLinkedListNode llist) {
+    Stack<Integer> stack = new Stack<>();
+
+    while (llist != null) {
+        stack.push(llist.data);
+        llist = llist.next;
     }
 
-    while (!st.empty()) {
-        cout << st.top() << endl;
-        st.pop();
+    while (!stack.isEmpty()) {
+        System.out.println(stack.pop());
     }
 }
 
-int main()
-{
-    string tests_temp;
-    getline(cin, tests_temp);
+}
 
-    int tests = stoi(ltrim(rtrim(tests_temp)));
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-    for (int tests_itr = 0; tests_itr < tests; tests_itr++) {
-        SinglyLinkedList* llist = new SinglyLinkedList();
+        int tests = Integer.parseInt(bufferedReader.readLine().trim());
 
-        string llist_count_temp;
-        getline(cin, llist_count_temp);
+        IntStream.range(0, tests).forEach(testsItr -> {
+            try {
+                SinglyLinkedList llist = new SinglyLinkedList();
 
-        int llist_count = stoi(ltrim(rtrim(llist_count_temp)));
+                int llistCount = Integer.parseInt(bufferedReader.readLine().trim());
 
-        for (int i = 0; i < llist_count; i++) {
-            string llist_item_temp;
-            getline(cin, llist_item_temp);
+                IntStream.range(0, llistCount).forEach(i -> {
+                    try {
+                        int llistItem = Integer.parseInt(bufferedReader.readLine().trim());
 
-            int llist_item = stoi(ltrim(rtrim(llist_item_temp)));
+                        llist.insertNode(llistItem);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
 
-            llist->insert_node(llist_item);
-        }
+                Result.reversePrint(llist.head);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
-        reversePrint(llist->head);
+        bufferedReader.close();
     }
-
-    return 0;
-}
-
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
 }
 
 ```
