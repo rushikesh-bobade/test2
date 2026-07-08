@@ -46,154 +46,42 @@ Each of the next $n$ lines contains an integer, the $data$ values of the element
 
 ## Solution
 
-**Language:** C++  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T15:44:31.004Z  
+**Submitted:** 2026-07-08T15:46:35.798Z  
 
-```cpp
-#include <bits/stdc++.h>
+```py
 
-using namespace std;
 
-string ltrim(const string &);
-string rtrim(const string &);
+#
+# Complete the 'reverse' function below.
+#
+# The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
+# The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+#
 
-class SinglyLinkedListNode {
-    public:
-        int data;
-        SinglyLinkedListNode *next;
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
 
-        SinglyLinkedListNode(int node_data) {
-            this->data = node_data;
-            this->next = nullptr;
-        }
-};
+def reverse(llist):
+    prev = None
+    current = llist
 
-class SinglyLinkedList {
-    public:
-        SinglyLinkedListNode *head;
-        SinglyLinkedListNode *tail;
+    while current:
+        next_node = current.next   # save next node
+        current.next = prev        # reverse pointer
+        prev = current             # move prev forward
+        current = next_node        # move current forward
 
-        SinglyLinkedList() {
-            this->head = nullptr;
-            this->tail = nullptr;
-        }
+    return prev
 
-        void insert_node(int node_data) {
-            SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
-
-            if (!this->head) {
-                this->head = node;
-            } else {
-                this->tail->next = node;
-            }
-
-            this->tail = node;
-        }
-};
-
-void print_singly_linked_list(SinglyLinkedListNode* node, string sep, ofstream& fout) {
-    while (node) {
-        fout << node->data;
-
-        node = node->next;
-
-        if (node) {
-            fout << sep;
-        }
-    }
-}
-
-/*
- * Complete the 'reverse' function below.
- *
- * The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
- * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
- */
-
-/*
- * For your reference:
- *
- * SinglyLinkedListNode {
- *     int data;
- *     SinglyLinkedListNode* next;
- * };
- *
- */
-
-SinglyLinkedListNode* reverse(SinglyLinkedListNode* llist) {
-    SinglyLinkedListNode* prev = nullptr;
-    SinglyLinkedListNode* current = llist;
-
-    while (current != nullptr) {
-        SinglyLinkedListNode* next = current->next; // save next node
-        current->next = prev;                       // reverse pointer
-        prev = current;                             // move prev forward
-        current = next;                             // move current forward
-    }
-
-    return prev; // new head of reversed list
-}
-
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
-
-    string tests_temp;
-    getline(cin, tests_temp);
-
-    int tests = stoi(ltrim(rtrim(tests_temp)));
-
-    for (int tests_itr = 0; tests_itr < tests; tests_itr++) {
-        SinglyLinkedList* llist = new SinglyLinkedList();
-
-        string llist_count_temp;
-        getline(cin, llist_count_temp);
-
-        int llist_count = stoi(ltrim(rtrim(llist_count_temp)));
-
-        for (int i = 0; i < llist_count; i++) {
-            string llist_item_temp;
-            getline(cin, llist_item_temp);
-
-            int llist_item = stoi(ltrim(rtrim(llist_item_temp)));
-
-            llist->insert_node(llist_item);
-        }
-
-        SinglyLinkedListNode* llist1 = reverse(llist->head);
-
-        print_singly_linked_list(llist1, " ", fout);
-        fout << "\n";
-    }
-
-    fout.close();
-
-    return 0;
-}
-
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
-}
 
 ```
 
