@@ -35,41 +35,43 @@ Output: ["a","b","c"]
 
 ## Solution
 
-**Language:** C++  
+**Language:** Java  
 **Runtime:** 0 ms  
-**Memory:** 8.4 MB  
-**Submitted:** 2026-07-08T12:02:28.508Z  
+**Memory:** 42.8 MB  
+**Submitted:** 2026-07-08T12:01:37.967Z  
 
-```cpp
+```java
 class Solution {
-public:
-    vector<string> ans;
-    
-    vector<string> mp = {
-        "", "", "abc", "def", "ghi",
-        "jkl", "mno", "pqrs", "tuv", "wxyz"
-    };
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits == null || digits.length() == 0) return result;
 
-    void backtrack(string &digits, int index, string current) {
-        if (index == digits.size()) {
-            ans.push_back(current);
+        String[] phoneMap = {
+            "", "", "abc", "def", "ghi", "jkl",
+            "mno", "pqrs", "tuv", "wxyz"
+        };
+
+        backtrack(result, new StringBuilder(), digits, 0, phoneMap);
+        return result;
+    }
+
+    private void backtrack(List<String> result, StringBuilder current,
+                           String digits, int index, String[] phoneMap) {
+        if (index == digits.length()) {
+            result.add(current.toString());
             return;
         }
 
-        string letters = mp[digits[index] - '0'];
-
-        for (char ch : letters) {
-            backtrack(digits, index + 1, current + ch);
+        String letters = phoneMap[digits.charAt(index) - '0'];
+        for (char c : letters.toCharArray()) {
+            current.append(c);
+            backtrack(result, current, digits, index + 1, phoneMap);
+            current.deleteCharAt(current.length() - 1);
         }
     }
+}
 
-    vector<string> letterCombinations(string digits) {
-        if (digits.empty()) return {};
 
-        backtrack(digits, 0, "");
-        return ans;
-    }
-};
 ```
 
 ---
