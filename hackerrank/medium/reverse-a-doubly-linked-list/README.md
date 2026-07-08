@@ -43,57 +43,52 @@ Return a reference to the head of your reversed list.  The provided code will pr
 
 ## Solution
 
-**Language:** Go  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:03:07.373Z  
+**Submitted:** 2026-07-08T14:05:06.995Z  
 
-```go
+```py
 
 
-/*
- * Complete the 'reverse' function below.
- *
- * The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
- * The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
- */
+#
+# Complete the 'reverse' function below.
+#
+# The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
+# The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
+#
 
-/*
- * For your reference:
- *
- * DoublyLinkedListNode {
- *     data int32
- *     next *DoublyLinkedListNode
- *     prev *DoublyLinkedListNode
- * }
- *
- */
+#
+# For your reference:
+#
+# DoublyLinkedListNode:
+#     int data
+#     DoublyLinkedListNode next
+#     DoublyLinkedListNode prev
+#
+#
 
-func reverse(llist *DoublyLinkedListNode) *DoublyLinkedListNode {
-    if llist == nil {
-        return nil
-    }
+def reverse(llist):
+    if llist is None:
+        return None
 
-    current := llist
-    var temp *DoublyLinkedListNode
+    current = llist
+    temp = None
 
-    for current != nil {
-        // Swap next and prev
+    while current:
+        # Swap next and prev
         temp = current.prev
         current.prev = current.next
         current.next = temp
 
-        // Move to the original next node
+        # Move to the original next node
         current = current.prev
-    }
 
-    // temp points to the previous node of the new head
-    if temp != nil {
+    # Return the new head
+    if temp:
         return temp.prev
-    }
 
     return llist
-}
 
 
 ```
