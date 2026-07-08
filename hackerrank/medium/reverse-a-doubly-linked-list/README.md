@@ -43,164 +43,159 @@ Return a reference to the head of your reversed list.  The provided code will pr
 
 ## Solution
 
-**Language:** C++  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:01:02.820Z  
+**Submitted:** 2026-07-08T14:02:08.102Z  
 
-```cpp
-#include <bits/stdc++.h>
-
-using namespace std;
-
-string ltrim(const string &);
-string rtrim(const string &);
+```java
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 class DoublyLinkedListNode {
-    public:
-        int data;
-        DoublyLinkedListNode *next;
-        DoublyLinkedListNode *prev;
+    public int data;
+    public DoublyLinkedListNode next;
+    public DoublyLinkedListNode prev;
 
-        DoublyLinkedListNode(int node_data) {
-            this->data = node_data;
-            this->next = nullptr;
-            this->prev = nullptr;
-        }
-};
+    public DoublyLinkedListNode(int nodeData) {
+        this.data = nodeData;
+        this.next = null;
+        this.prev = null;
+    }
+}
 
 class DoublyLinkedList {
-    public:
-        DoublyLinkedListNode *head;
-        DoublyLinkedListNode *tail;
+    public DoublyLinkedListNode head;
+    public DoublyLinkedListNode tail;
 
-        DoublyLinkedList() {
-            this->head = nullptr;
-            this->tail = nullptr;
+    public DoublyLinkedList() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    public void insertNode(int nodeData) {
+        DoublyLinkedListNode node = new DoublyLinkedListNode(nodeData);
+
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
+            node.prev = this.tail;
         }
 
-        void insert_node(int node_data) {
-            DoublyLinkedListNode* node = new DoublyLinkedListNode(node_data);
+        this.tail = node;
+    }
+}
 
-            if (!this->head) {
-                this->head = node;
-            } else {
-                this->tail->next = node;
-                node->prev = this->tail;
+class DoublyLinkedListPrintHelper {
+    public static void printList(DoublyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
+        while (node != null) {
+            bufferedWriter.write(String.valueOf(node.data));
+
+            node = node.next;
+
+            if (node != null) {
+                bufferedWriter.write(sep);
             }
-
-            this->tail = node;
-        }
-};
-
-void print_doubly_linked_list(DoublyLinkedListNode* node, string sep, ofstream& fout) {
-    while (node) {
-        fout << node->data;
-
-        node = node->next;
-
-        if (node) {
-            fout << sep;
         }
     }
 }
 
-/*
- * Complete the 'reverse' function below.
- *
- * The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
- * The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
- */
+class Result {
 
-/*
- * For your reference:
- *
- * DoublyLinkedListNode {
- *     int data;
- *     DoublyLinkedListNode* next;
- *     DoublyLinkedListNode* prev;
- * };
- *
- */
+    /*
+     * Complete the 'reverse' function below.
+     *
+     * The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
+     * The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
+     */
 
-DoublyLinkedListNode* reverse(DoublyLinkedListNode* llist) {
-    DoublyLinkedListNode* current = llist;
-    DoublyLinkedListNode* temp = nullptr;
+    /*
+     * For your reference:
+     *
+     * DoublyLinkedListNode {
+     *     int data;
+     *     DoublyLinkedListNode next;
+     *     DoublyLinkedListNode prev;
+     * }
+     *
+     */
 
-    while (current != nullptr) {
+static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
+
+    if (head == null) {
+        return null;
+    }
+
+    DoublyLinkedListNode current = head;
+    DoublyLinkedListNode temp = null;
+
+    while (current != null) {
+
         // Swap next and prev
-        temp = current->prev;
-        current->prev = current->next;
-        current->next = temp;
+        temp = current.prev;
+        current.prev = current.next;
+        current.next = temp;
 
-        // Move to the next node (original next)
-        current = current->prev;
+        // Move to next node (old next)
+        current = current.prev;
     }
 
-    // Return the new head
-    if (temp != nullptr)
-        return temp->prev;
-
-    return llist;
-}
-
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
-
-    string t_temp;
-    getline(cin, t_temp);
-
-    int t = stoi(ltrim(rtrim(t_temp)));
-
-    for (int t_itr = 0; t_itr < t; t_itr++) {
-        DoublyLinkedList* llist = new DoublyLinkedList();
-
-        string llist_count_temp;
-        getline(cin, llist_count_temp);
-
-        int llist_count = stoi(ltrim(rtrim(llist_count_temp)));
-
-        for (int i = 0; i < llist_count; i++) {
-            string llist_item_temp;
-            getline(cin, llist_item_temp);
-
-            int llist_item = stoi(ltrim(rtrim(llist_item_temp)));
-
-            llist->insert_node(llist_item);
-        }
-
-        DoublyLinkedListNode* llist1 = reverse(llist->head);
-
-        print_doubly_linked_list(llist1, " ", fout);
-        fout << "\n";
+    // temp is the old prev of the first node,
+    // which becomes the new head
+    if (temp != null) {
+        head = temp.prev;
     }
 
-    fout.close();
-
-    return 0;
+    return head;
 }
 
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
 }
 
-string rtrim(const string &str) {
-    string s(str);
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
+        int t = Integer.parseInt(bufferedReader.readLine().trim());
 
-    return s;
+        IntStream.range(0, t).forEach(tItr -> {
+            try {
+                DoublyLinkedList llist = new DoublyLinkedList();
+
+                int llistCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+                IntStream.range(0, llistCount).forEach(i -> {
+                    try {
+                        int llistItem = Integer.parseInt(bufferedReader.readLine().trim());
+
+                        llist.insertNode(llistItem);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+
+                DoublyLinkedListNode llist1 = Result.reverse(llist.head);
+
+                DoublyLinkedListPrintHelper.printList(llist1, " ", bufferedWriter);
+                bufferedWriter.newLine();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
 }
 
 ```
