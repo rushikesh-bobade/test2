@@ -39,38 +39,30 @@ Explanation: The array can be modified as [3+k, 9+k, 12-k, 16-k, 20-k] = [6, 12,
 
 ## Solution
 
-**Language:** JavaScript  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T12:06:39.059Z  
+**Submitted:** 2026-07-08T12:05:35.543Z  
 
-```js
-/**
- * @param {number[]} arr
- * @param {number} k
- * @returns {number}
- */
+```py
+class Solution:
+    def getMinDiff(self, arr, k):
+        arr.sort()
+        n = len(arr)
 
-class Solution {
-    getMinDiff(arr, k) {
-        arr.sort((a, b) => a - b);
+        ans = arr[-1] - arr[0]
 
-        const n = arr.length;
-        let ans = arr[n - 1] - arr[0];
+        for i in range(1, n):
+            # Skip if height becomes negative
+            if arr[i] - k < 0:
+                continue
 
-        for (let i = 1; i < n; i++) {
-            // Skip if height becomes negative
-            if (arr[i] - k < 0) continue;
+            mini = min(arr[0] + k, arr[i] - k)
+            maxi = max(arr[i - 1] + k, arr[-1] - k)
 
-            const mini = Math.min(arr[0] + k, arr[i] - k);
-            const maxi = Math.max(arr[i - 1] + k, arr[n - 1] - k);
+            ans = min(ans, maxi - mini)
 
-            ans = Math.min(ans, maxi - mini);
-        }
-
-        return ans;
-    }
-}
+        return ans
 ```
 
 ---
