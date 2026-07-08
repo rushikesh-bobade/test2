@@ -47,30 +47,31 @@ Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 
 ## Solution
 
-**Language:** Java  
-**Runtime:** 4 ms (beats 100.00%)  
-**Memory:** 46.1 MB (beats 17.32%)  
-**Submitted:** 2026-07-08T14:51:06.666Z  
+**Language:** Python  
+**Runtime:** 0 ms  
+**Memory:** 19.3 MB  
+**Submitted:** 2026-07-08T14:52:05.433Z  
 
-```java
-class Solution {
-    public boolean isPalindrome(int x) {
+```py
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        # Negative numbers are not palindrome
+        if x < 0:
+            return False
         
-        // Negative numbers or numbers ending in 0 (except 0)
-        if (x < 0 || (x % 10 == 0 && x != 0)) {
-            return false;
-        }
-
-        int reversedHalf = 0;
-
-        while (x > reversedHalf) {
-            reversedHalf = reversedHalf * 10 + x % 10;
-            x /= 10;
-        }
-
-        return x == reversedHalf || x == reversedHalf / 10;
-    }
-}
+        # Numbers ending with 0 (except 0) are not palindrome
+        if x % 10 == 0 and x != 0:
+            return False
+        
+        original = x
+        reversed_num = 0
+        
+        while x > 0:
+            digit = x % 10
+            reversed_num = reversed_num * 10 + digit
+            x //= 10
+        
+        return original == reversed_num
 ```
 
 ---
