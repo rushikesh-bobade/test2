@@ -63,45 +63,31 @@ Output: "A"
 
 ## Solution
 
-**Language:** Java  
-**Runtime:** 4 ms (beats 88.72%)  
-**Memory:** 46.6 MB (beats 50.57%)  
-**Submitted:** 2026-07-08T14:23:25.760Z  
+**Language:** Python  
+**Runtime:** 8 ms (beats 71.84%)  
+**Memory:** 19.3 MB (beats 47.48%)  
+**Submitted:** 2026-07-08T14:24:46.953Z  
 
-```java
-class Solution {
-    public String convert(String s, int numRows) {
-        if (numRows == 1 || s.length() <= numRows) {
-            return s;
-        }
+```py
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1 or numRows >= len(s):
+            return s
 
-        StringBuilder[] rows = new StringBuilder[numRows];
-        
-        for (int i = 0; i < numRows; i++) {
-            rows[i] = new StringBuilder();
-        }
+        rows = [""] * numRows
+        current_row = 0
+        direction = -1
 
-        int currentRow = 0;
-        boolean goingDown = false;
+        for ch in s:
+            rows[current_row] += ch
 
-        for (char c : s.toCharArray()) {
-            rows[currentRow].append(c);
+            # Change direction at top and bottom
+            if current_row == 0 or current_row == numRows - 1:
+                direction *= -1
 
-            if (currentRow == 0 || currentRow == numRows - 1) {
-                goingDown = !goingDown;
-            }
+            current_row += direction
 
-            currentRow += goingDown ? 1 : -1;
-        }
-
-        StringBuilder result = new StringBuilder();
-        for (StringBuilder row : rows) {
-            result.append(row);
-        }
-
-        return result.toString();
-    }
-}
+        return "".join(rows)
 ```
 
 ---
