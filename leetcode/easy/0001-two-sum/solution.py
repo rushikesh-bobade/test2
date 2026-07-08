@@ -1,11 +1,15 @@
-class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seen = {}
+function twoSum(nums: number[], target: number): number[] {
+    const seen = new Map<number, number>();
 
-        for i, num in enumerate(nums):
-            complement = target - num
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
 
-            if complement in seen:
-                return [seen[complement], i]
+        if (seen.has(complement)) {
+            return [seen.get(complement)!, i];
+        }
 
-            seen[num] = i
+        seen.set(nums[i], i);
+    }
+
+    return [];
+}
