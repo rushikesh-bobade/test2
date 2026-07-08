@@ -55,29 +55,42 @@ Output
 
 ## Solution
 
-**Language:** Python  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T15:26:41.594Z  
+**Submitted:** 2026-07-08T15:30:07.620Z  
 
-```py
-def solve():
-    t = int(input())
+```java
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-    for _ in range(t):
-        n = int(input())
-        s = input().strip()
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
 
-        count = 0
+		int T = sc.nextInt();
 
-        for i in range(1, n):
-            if s[i] == s[i - 1]:
-                count += 1
+		while (T-- > 0) {
+			int N = sc.nextInt();
+			String S = sc.next();
 
-        print(count)
+			int count = 0;
 
-if __name__ == "__main__":
-    solve()
+			for (int i = 1; i < N; i++) {
+				if (S.charAt(i) == S.charAt(i - 1)) {
+					count++;
+				}
+			}
+
+			System.out.println(count);
+		}
+
+		sc.close();
+	}
+}
 ```
 
 ---
