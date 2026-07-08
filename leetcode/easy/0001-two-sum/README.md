@@ -52,28 +52,27 @@ Output: [0,1]
 
 ## Solution
 
-**Language:** C++  
-**Runtime:** 4 ms (beats 51.54%)  
-**Memory:** 15 MB (beats 19.17%)  
-**Submitted:** 2026-07-08T13:54:07.948Z  
+**Language:** TypeScript  
+**Runtime:** 2 ms (beats 72.99%)  
+**Memory:** 57.2 MB (beats 43.98%)  
+**Submitted:** 2026-07-08T13:56:37.050Z  
 
-```cpp
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        map<int,int>mpp;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            int num=nums[i];
-            int moreNeeded = target-num;
-            if(mpp.find(moreNeeded)!=mpp.end()){
-                return{mpp[moreNeeded],i};
-            }
-            mpp[num]= i;
+```ts
+function twoSum(nums: number[], target: number): number[] {
+    const seen = new Map<number, number>();
+
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+
+        if (seen.has(complement)) {
+            return [seen.get(complement)!, i];
         }
-        return{-1,-1};
+
+        seen.set(nums[i], i);
     }
-};
+
+    return [];
+}
 ```
 
 ---
