@@ -47,32 +47,28 @@ Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 
 ## Solution
 
-**Language:** Kotlin  
-**Runtime:** 5 ms (beats 99.91%)  
-**Memory:** 45.6 MB (beats 67.00%)  
-**Submitted:** 2026-07-08T14:50:19.767Z  
+**Language:** Java  
+**Runtime:** 4 ms (beats 100.00%)  
+**Memory:** 46.1 MB (beats 17.32%)  
+**Submitted:** 2026-07-08T14:51:06.666Z  
 
-```kt
+```java
 class Solution {
-    fun isPalindrome(x: Int): Boolean {
-        // Negative numbers cannot be palindrome
-        if (x < 0) return false
+    public boolean isPalindrome(int x) {
         
-        // Numbers ending with 0 (except 0 itself) cannot be palindrome
-        if (x % 10 == 0 && x != 0) return false
-        
-        var num = x
-        var reversed = 0
-        
-        // Reverse only half of the number
-        while (num > reversed) {
-            reversed = reversed * 10 + num % 10
-            num /= 10
+        // Negative numbers or numbers ending in 0 (except 0)
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
         }
-        
-        // For even digits: num == reversed
-        // For odd digits: num == reversed / 10 (middle digit ignored)
-        return num == reversed || num == reversed / 10
+
+        int reversedHalf = 0;
+
+        while (x > reversedHalf) {
+            reversedHalf = reversedHalf * 10 + x % 10;
+            x /= 10;
+        }
+
+        return x == reversedHalf || x == reversedHalf / 10;
     }
 }
 ```
