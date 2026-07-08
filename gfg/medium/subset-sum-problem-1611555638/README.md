@@ -34,23 +34,30 @@ Explanation: The entire array can be taken as a subset, giving 1 + 2 + 3 = 6.
 
 ## Solution
 
-**Language:** Python  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T15:38:44.842Z  
+**Submitted:** 2026-07-08T15:39:54.553Z  
 
-```py
-class Solution:
-    def isSubsetSum(self, arr, sum):
-        dp = [False] * (sum + 1)
-        dp[0] = True
+```java
+class Solution {
 
-        for num in arr:
-            for target in range(sum, num - 1, -1):
-                if dp[target - num]:
-                    dp[target] = True
+    static Boolean isSubsetSum(int arr[], int sum) {
+        boolean[] dp = new boolean[sum + 1];
 
-        return dp[sum]
+        dp[0] = true;
+
+        for (int num : arr) {
+            for (int target = sum; target >= num; target--) {
+                if (dp[target - num]) {
+                    dp[target] = true;
+                }
+            }
+        }
+
+        return dp[sum];
+    }
+}
 ```
 
 ---
