@@ -63,31 +63,43 @@ Output: "A"
 
 ## Solution
 
-**Language:** Python  
-**Runtime:** 8 ms (beats 71.84%)  
-**Memory:** 19.3 MB (beats 47.48%)  
-**Submitted:** 2026-07-08T14:24:46.953Z  
+**Language:** Kotlin  
+**Runtime:** 5 ms (beats 94.42%)  
+**Memory:** 45.5 MB (beats 93.68%)  
+**Submitted:** 2026-07-08T14:26:32.870Z  
 
-```py
-class Solution:
-    def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1 or numRows >= len(s):
+```kt
+class Solution {
+    fun convert(s: String, numRows: Int): String {
+        if (numRows == 1 || numRows >= s.length) {
             return s
+        }
 
-        rows = [""] * numRows
-        current_row = 0
-        direction = -1
+        val rows = Array(numRows) { StringBuilder() }
 
-        for ch in s:
-            rows[current_row] += ch
+        var currentRow = 0
+        var direction = -1
 
-            # Change direction at top and bottom
-            if current_row == 0 or current_row == numRows - 1:
+        for (ch in s) {
+            rows[currentRow].append(ch)
+
+            // Change direction at top and bottom rows
+            if (currentRow == 0 || currentRow == numRows - 1) {
                 direction *= -1
+            }
 
-            current_row += direction
+            currentRow += direction
+        }
 
-        return "".join(rows)
+        val result = StringBuilder()
+
+        for (row in rows) {
+            result.append(row)
+        }
+
+        return result.toString()
+    }
+}
 ```
 
 ---
