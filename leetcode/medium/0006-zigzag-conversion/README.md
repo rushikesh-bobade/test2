@@ -64,9 +64,9 @@ Output: "A"
 ## Solution
 
 **Language:** C++  
-**Runtime:** 0 ms  
-**Memory:** 8 MB  
-**Submitted:** 2026-07-08T14:25:21.722Z  
+**Runtime:** 6 ms (beats 47.28%)  
+**Memory:** 14.2 MB (beats 26.43%)  
+**Submitted:** 2026-07-08T14:25:30.107Z  
 
 ```cpp
 class Solution {
