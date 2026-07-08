@@ -33,77 +33,49 @@ Explanation: Repeating number is 1 and the missing number is 5.
 
 ## Solution
 
-**Language:** Java  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:22:40.655Z  
+**Submitted:** 2026-07-08T13:23:45.476Z  
 
-```java
-import java.util.*;
-import java.util.*;
+```py
+class Solution:
+    def findTwoElement(self, arr):
+        n = len(arr)
 
-class Solution {
-    ArrayList<Integer> findTwoElement(int arr[]) {
-       ArrayList<Integer>ans=new ArrayList<>();
-        Map<Integer, Integer> map = new HashMap<>();
-       
-        int repeating = -1;
-        int missing = -1;
+        xor_val = 0
 
-        for (int num : arr) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
-        }
+        # XOR all array elements and numbers from 1 to n
+        for num in arr:
+            xor_val ^= num
 
-        for (int i = 1; i <= arr.length; i++) {
-            if (!map.containsKey(i)) {
-                missing = i;
-            } else if (map.get(i) == 2) {
-                repeating = i;
-            }
-        }
+        for i in range(1, n + 1):
+            xor_val ^= i
 
-        ans.add(repeating);
-        ans.add(missing);
-       return ans;
-       
-       
-       
-    //   HashSet<Integer>set=new HashSet<>();
-    //   int min=Integer.MAX_VALUE;
-       
-    //   for(int i=0;i<arr.length;i++){
-    //       if(set.contains(arr[i])){
-    //           ans.add(arr[i]);
-    //       }else{
-    //           set.add(arr[i]);
-    //       }
-           
-    //       if(arr[i]<min){
-    //           min=arr[i];
-    //       }
-           
-    //   }
-       
-    //   for(int i=0;i<arr.length-1;i++){
-           
-    //       if(!set.contains(1)){
-    //           ans.add(1);
-    //           return ans;
-    //       }
-           
-    //       if(set.contains(min+1)){
-    //           min++; 
-    //       }else{
-    //           ans.add(min+1);
-    //           return ans;
-    //       }
-    //   }
-       
-    //   return ans;
-        
-    }
-}
+        # Find rightmost set bit
+        set_bit = xor_val & -xor_val
 
+        x = 0
+        y = 0
+
+        # Divide numbers into two groups
+        for num in arr:
+            if num & set_bit:
+                x ^= num
+            else:
+                y ^= num
+
+        for i in range(1, n + 1):
+            if i & set_bit:
+                x ^= i
+            else:
+                y ^= i
+
+        # Determine which one is repeating
+        if x in arr:
+            return [x, y]
+        else:
+            return [y, x]
 ```
 
 ---
