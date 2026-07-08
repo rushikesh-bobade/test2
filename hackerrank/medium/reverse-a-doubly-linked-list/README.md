@@ -43,80 +43,64 @@ Return a reference to the head of your reversed list.  The provided code will pr
 
 ## Solution
 
-**Language:** TypeScript  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:59:39.929Z  
+**Submitted:** 2026-07-08T14:01:02.820Z  
 
-```ts
-'use strict';
+```cpp
+#include <bits/stdc++.h>
 
-import { WriteStream, createWriteStream } from "fs";
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+using namespace std;
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-
-    main();
-});
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
+string ltrim(const string &);
+string rtrim(const string &);
 
 class DoublyLinkedListNode {
-    data: number;
-    next: DoublyLinkedListNode | null;
-    prev: DoublyLinkedListNode | null;
+    public:
+        int data;
+        DoublyLinkedListNode *next;
+        DoublyLinkedListNode *prev;
 
-    constructor(nodeData: number) {
-        this.data = nodeData;
-        this.next = null;
-        this.prev = null;
-    }
+        DoublyLinkedListNode(int node_data) {
+            this->data = node_data;
+            this->next = nullptr;
+            this->prev = nullptr;
+        }
 };
 
 class DoublyLinkedList {
-    head: DoublyLinkedListNode | null;
-    tail: DoublyLinkedListNode | null;
+    public:
+        DoublyLinkedListNode *head;
+        DoublyLinkedListNode *tail;
 
-    constructor() {
-        this.head = null;
-        this.tail = null;
-    }
-
-    insertNode(nodeData: number): void {
-        let node = new DoublyLinkedListNode(nodeData);
-
-        if (this.head == null) {
-            this.head = node;
-        } else {
-            this.tail!.next = node;
-            node.prev = this.tail;
+        DoublyLinkedList() {
+            this->head = nullptr;
+            this->tail = nullptr;
         }
 
-        this.tail = node;
-    }
+        void insert_node(int node_data) {
+            DoublyLinkedListNode* node = new DoublyLinkedListNode(node_data);
+
+            if (!this->head) {
+                this->head = node;
+            } else {
+                this->tail->next = node;
+                node->prev = this->tail;
+            }
+
+            this->tail = node;
+        }
 };
 
-function printDoublyLinkedList(node: DoublyLinkedListNode | null, sep: string, ws: WriteStream): void {
-    while (node != null) {
-        ws.write(String(node.data));
+void print_doubly_linked_list(DoublyLinkedListNode* node, string sep, ofstream& fout) {
+    while (node) {
+        fout << node->data;
 
-        node = node.next;
+        node = node->next;
 
-        if (node != null) {
-            ws.write(sep);
+        if (node) {
+            fout << sep;
         }
     }
 }
@@ -132,58 +116,91 @@ function printDoublyLinkedList(node: DoublyLinkedListNode | null, sep: string, w
  * For your reference:
  *
  * DoublyLinkedListNode {
- *     number data;
- *     DoublyLinkedListNode next;
- *     DoublyLinkedListNode prev;
- * }
+ *     int data;
+ *     DoublyLinkedListNode* next;
+ *     DoublyLinkedListNode* prev;
+ * };
  *
  */
 
-function reverse(llist: DoublyLinkedListNode): DoublyLinkedListNode {
-    let current: DoublyLinkedListNode | null = llist;
-    let temp: DoublyLinkedListNode | null = null;
+DoublyLinkedListNode* reverse(DoublyLinkedListNode* llist) {
+    DoublyLinkedListNode* current = llist;
+    DoublyLinkedListNode* temp = nullptr;
 
-    while (current !== null) {
-        // Swap prev and next
-        temp = current.prev;
-        current.prev = current.next;
-        current.next = temp;
+    while (current != nullptr) {
+        // Swap next and prev
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;
 
-        // Move to the next node in the original list
-        current = current.prev;
+        // Move to the next node (original next)
+        current = current->prev;
     }
 
-    // temp points to the previous node of the new head
-    if (temp !== null) {
-        return temp.prev!;
-    }
+    // Return the new head
+    if (temp != nullptr)
+        return temp->prev;
 
     return llist;
 }
 
-function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
 
-    const t: number = parseInt(readLine().trim(), 10);
+    string t_temp;
+    getline(cin, t_temp);
 
-    for (let tItr: number = 0; tItr < t; tItr++) {
-        let llist: DoublyLinkedList = new DoublyLinkedList();
+    int t = stoi(ltrim(rtrim(t_temp)));
 
-        const llistCount: number = parseInt(readLine().trim(), 10);
+    for (int t_itr = 0; t_itr < t; t_itr++) {
+        DoublyLinkedList* llist = new DoublyLinkedList();
 
-        for (let i: number = 0; i < llistCount; i++) {
-            const llistItem: number = parseInt(readLine().trim(), 10);
+        string llist_count_temp;
+        getline(cin, llist_count_temp);
 
-            llist.insertNode(llistItem);
+        int llist_count = stoi(ltrim(rtrim(llist_count_temp)));
+
+        for (int i = 0; i < llist_count; i++) {
+            string llist_item_temp;
+            getline(cin, llist_item_temp);
+
+            int llist_item = stoi(ltrim(rtrim(llist_item_temp)));
+
+            llist->insert_node(llist_item);
         }
 
-        const llist1: DoublyLinkedListNode = reverse(llist.head);
+        DoublyLinkedListNode* llist1 = reverse(llist->head);
 
-        printDoublyLinkedList(llist1, ' ', ws);
-        ws.write('\n');
+        print_doubly_linked_list(llist1, " ", fout);
+        fout << "\n";
     }
 
-    ws.end();
+    fout.close();
+
+    return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
 }
 
 ```
