@@ -39,28 +39,31 @@ Explanation: The array can be modified as [3+k, 9+k, 12-k, 16-k, 20-k] = [6, 12,
 
 ## Solution
 
-**Language:** Java  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T12:04:48.562Z  
+**Submitted:** 2026-07-08T12:06:39.059Z  
 
-```java
-import java.util.Arrays;
+```js
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @returns {number}
+ */
 
 class Solution {
-    public int getMinDiff(int[] arr, int k) {
-        int n = arr.length;
-        Arrays.sort(arr);
+    getMinDiff(arr, k) {
+        arr.sort((a, b) => a - b);
 
-        int ans = arr[n - 1] - arr[0];
+        const n = arr.length;
+        let ans = arr[n - 1] - arr[0];
 
-        for (int i = 1; i < n; i++) {
-            // Skip if decreasing makes height negative
-            if (arr[i] - k < 0)
-                continue;
+        for (let i = 1; i < n; i++) {
+            // Skip if height becomes negative
+            if (arr[i] - k < 0) continue;
 
-            int mini = Math.min(arr[0] + k, arr[i] - k);
-            int maxi = Math.max(arr[i - 1] + k, arr[n - 1] - k);
+            const mini = Math.min(arr[0] + k, arr[i] - k);
+            const maxi = Math.max(arr[i - 1] + k, arr[n - 1] - k);
 
             ans = Math.min(ans, maxi - mini);
         }
