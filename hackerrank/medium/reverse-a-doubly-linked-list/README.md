@@ -43,53 +43,160 @@ Return a reference to the head of your reversed list.  The provided code will pr
 
 ## Solution
 
-**Language:** Python  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:05:06.995Z  
+**Submitted:** 2026-07-08T15:41:57.430Z  
 
-```py
+```java
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
+class DoublyLinkedListNode {
+    public int data;
+    public DoublyLinkedListNode next;
+    public DoublyLinkedListNode prev;
 
-#
-# Complete the 'reverse' function below.
-#
-# The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
-# The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
-#
+    public DoublyLinkedListNode(int nodeData) {
+        this.data = nodeData;
+        this.next = null;
+        this.prev = null;
+    }
+}
 
-#
-# For your reference:
-#
-# DoublyLinkedListNode:
-#     int data
-#     DoublyLinkedListNode next
-#     DoublyLinkedListNode prev
-#
-#
+class DoublyLinkedList {
+    public DoublyLinkedListNode head;
+    public DoublyLinkedListNode tail;
 
-def reverse(llist):
-    if llist is None:
-        return None
+    public DoublyLinkedList() {
+        this.head = null;
+        this.tail = null;
+    }
 
-    current = llist
-    temp = None
+    public void insertNode(int nodeData) {
+        DoublyLinkedListNode node = new DoublyLinkedListNode(nodeData);
 
-    while current:
-        # Swap next and prev
-        temp = current.prev
-        current.prev = current.next
-        current.next = temp
+        if (this.head == null) {
+            this.head = node;
+        } else {
+            this.tail.next = node;
+            node.prev = this.tail;
+        }
 
-        # Move to the original next node
-        current = current.prev
+        this.tail = node;
+    }
+}
 
-    # Return the new head
-    if temp:
-        return temp.prev
+class DoublyLinkedListPrintHelper {
+    public static void printList(DoublyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
+        while (node != null) {
+            bufferedWriter.write(String.valueOf(node.data));
 
-    return llist
+            node = node.next;
 
+            if (node != null) {
+                bufferedWriter.write(sep);
+            }
+        }
+    }
+}
+
+class Result {
+
+    /*
+     * Complete the 'reverse' function below.
+     *
+     * The function is expected to return an INTEGER_DOUBLY_LINKED_LIST.
+     * The function accepts INTEGER_DOUBLY_LINKED_LIST llist as parameter.
+     */
+
+    /*
+     * For your reference:
+     *
+     * DoublyLinkedListNode {
+     *     int data;
+     *     DoublyLinkedListNode next;
+     *     DoublyLinkedListNode prev;
+     * }
+     *
+     */
+
+static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
+
+    if (head == null) {
+        return null;
+    }
+
+    DoublyLinkedListNode current = head;
+    DoublyLinkedListNode temp = null;
+
+    while (current != null) {
+
+        // Swap next and prev
+        temp = current.prev;
+        current.prev = current.next;
+        current.next = temp;
+
+        // Move to next node (old next)
+        current = current.prev;
+    }
+
+    // temp is the old prev of the first node,
+    // which becomes the new head
+    if (temp != null) {
+        head = temp.prev;
+    }
+
+    return head;
+}
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = Integer.parseInt(bufferedReader.readLine().trim());
+
+        IntStream.range(0, t).forEach(tItr -> {
+            try {
+                DoublyLinkedList llist = new DoublyLinkedList();
+
+                int llistCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+                IntStream.range(0, llistCount).forEach(i -> {
+                    try {
+                        int llistItem = Integer.parseInt(bufferedReader.readLine().trim());
+
+                        llist.insertNode(llistItem);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+
+                DoublyLinkedListNode llist1 = Result.reverse(llist.head);
+
+                DoublyLinkedListPrintHelper.printList(llist1, " ", bufferedWriter);
+                bufferedWriter.newLine();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
 
 ```
 
