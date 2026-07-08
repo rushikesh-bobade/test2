@@ -53,35 +53,25 @@ Output
 
 ## Solution
 
-**Language:** C#  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:20:32.737Z  
+**Submitted:** 2026-07-08T13:21:12.285Z  
 
-```cs
-using System;
+```py
+t = int(input())
 
-public class Test
-{
-    public static void Main()
-    {
-        int t = int.Parse(Console.ReadLine());
+while t > 0:
+    s = input()
 
-        while (t-- > 0)
-        {
-            string s = Console.ReadLine();
+    remainder = 0
 
-            int remainder = 0;
+    for ch in s:
+        remainder = (remainder * 10 + int(ch)) % 20
 
-            foreach (char c in s)
-            {
-                remainder = (remainder * 10 + (c - '0')) % 20;
-            }
+    print(remainder)
 
-            Console.WriteLine(remainder);
-        }
-    }
-}
+    t -= 1
 ```
 
 ---
