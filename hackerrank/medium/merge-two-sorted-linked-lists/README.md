@@ -49,112 +49,112 @@ The next $m$ lines contain an integer each, the elements of the second linked li
 
 ## Solution
 
-**Language:** C++  
+**Language:** Java  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:47:58.569Z  
+**Submitted:** 2026-07-08T14:49:20.731Z  
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+```java
+import java.io.*;
+import java.util.*;
 
-class SinglyLinkedListNode {
-public:
-    int data;
-    SinglyLinkedListNode* next;
+public class Solution {
 
-    SinglyLinkedListNode(int node_data) {
-        data = node_data;
-        next = nullptr;
-    }
-};
+    static class SinglyLinkedListNode {
+        int data;
+        SinglyLinkedListNode next;
 
-class SinglyLinkedList {
-public:
-    SinglyLinkedListNode* head;
-    SinglyLinkedListNode* tail;
-
-    SinglyLinkedList() {
-        head = nullptr;
-        tail = nullptr;
+        SinglyLinkedListNode(int data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
-    void insert_node(int node_data) {
-        SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
+    static SinglyLinkedListNode mergeLists(
+            SinglyLinkedListNode head1,
+            SinglyLinkedListNode head2) {
 
-        if (!head) {
-            head = node;
-        } else {
-            tail->next = node;
+        SinglyLinkedListNode dummy = new SinglyLinkedListNode(0);
+        SinglyLinkedListNode tail = dummy;
+
+        while (head1 != null && head2 != null) {
+
+            if (head1.data <= head2.data) {
+                tail.next = head1;
+                head1 = head1.next;
+            } else {
+                tail.next = head2;
+                head2 = head2.next;
+            }
+
+            tail = tail.next;
         }
 
-        tail = node;
+        if (head1 != null)
+            tail.next = head1;
+        else
+            tail.next = head2;
+
+        return dummy.next;
     }
-};
 
-SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
-    SinglyLinkedListNode* dummy = new SinglyLinkedListNode(0);
-    SinglyLinkedListNode* curr = dummy;
+    static SinglyLinkedListNode insert(
+            SinglyLinkedListNode head, int data) {
 
-    while (head1 && head2) {
-        if (head1->data <= head2->data) {
-            curr->next = head1;
-            head1 = head1->next;
-        } else {
-            curr->next = head2;
-            head2 = head2->next;
+        SinglyLinkedListNode node = new SinglyLinkedListNode(data);
+
+        if (head == null)
+            return node;
+
+        SinglyLinkedListNode temp = head;
+
+        while (temp.next != null)
+            temp = temp.next;
+
+        temp.next = node;
+
+        return head;
+    }
+
+    static void printList(SinglyLinkedListNode head) {
+
+        while (head != null) {
+            System.out.print(head.data + " ");
+            head = head.next;
         }
-        curr = curr->next;
     }
 
-    if (head1)
-        curr->next = head1;
-    else
-        curr->next = head2;
+    public static void main(String[] args) throws Exception {
 
-    return dummy->next;
-}
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(System.in));
 
-void printList(SinglyLinkedListNode* node) {
-    while (node) {
-        cout << node->data;
-        if (node->next)
-            cout << " ";
-        node = node->next;
-    }
-}
+        int t = Integer.parseInt(br.readLine());
 
-int main() {
-    int t;
-    cin >> t;
+        while (t-- > 0) {
 
-    while (t--) {
-        int n;
-        cin >> n;
+            int n = Integer.parseInt(br.readLine());
+            SinglyLinkedListNode head1 = null;
 
-        SinglyLinkedList list1;
-        for (int i = 0; i < n; i++) {
-            int x;
-            cin >> x;
-            list1.insert_node(x);
+            for (int i = 0; i < n; i++) {
+                head1 = insert(head1,
+                        Integer.parseInt(br.readLine()));
+            }
+
+            int m = Integer.parseInt(br.readLine());
+            SinglyLinkedListNode head2 = null;
+
+            for (int i = 0; i < m; i++) {
+                head2 = insert(head2,
+                        Integer.parseInt(br.readLine()));
+            }
+
+            SinglyLinkedListNode result = mergeLists(head1, head2);
+
+            printList(result);
+            System.out.println();
         }
-
-        cin >> n;
-
-        SinglyLinkedList list2;
-        for (int i = 0; i < n; i++) {
-            int x;
-            cin >> x;
-            list2.insert_node(x);
-        }
-
-        SinglyLinkedListNode* result = mergeLists(list1.head, list2.head);
-
-        printList(result);
-        cout << "\n";
     }
-
-    return 0;
 }
 
 ```
