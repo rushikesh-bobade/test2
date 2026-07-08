@@ -66,35 +66,18 @@ fun is Science Data
 
 ## Solution
 
-**Language:** c_cpp  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:32:37.025Z  
+**Submitted:** 2026-07-08T14:33:24.649Z  
 
-```c_cpp
-string reverseWords(string s) {
-    vector<string> words;
-    string word;
+```py
+def reverseWords(s: str) -> str:
+    words = s.split()
 
-    stringstream ss(s);
+    words.reverse()
 
-    while (ss >> word) {
-        words.push_back(word);
-    }
-
-    reverse(words.begin(), words.end());
-
-    string result;
-
-    for (int i = 0; i < words.size(); i++) {
-        if (i > 0) {
-            result += " ";
-        }
-        result += words[i];
-    }
-
-    return result;
-}
+    return " ".join(words)
 ```
 
 ---
