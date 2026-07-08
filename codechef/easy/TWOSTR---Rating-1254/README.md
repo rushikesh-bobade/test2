@@ -51,40 +51,36 @@ No
 **Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T13:04:09.080Z  
+**Submitted:** 2026-07-08T13:05:40.718Z  
 
 ```cpp
-import java.util.Scanner;
+#include <bits/stdc++.h>
+using namespace std;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int t = scanner.nextInt();
+int main() {
+    int t;
+    cin >> t;
 
-        while (t-- > 0) {
-            String x = scanner.next();
-            String y = scanner.next();
+    while (t--) {
+        string x, y;
+        cin >> x >> y;
 
-            boolean possible = true;
+        bool possible = true;
 
-            for (int i = 0; i < x.length(); i++) {
-                char a = x.charAt(i);
-                char b = y.charAt(i);
-
-                if (a != '?' && b != '?' && a != b) {
-                    possible = false;
-                    break;
-                }
+        for (int i = 0; i < x.length(); i++) {
+            if (x[i] != '?' && y[i] != '?' && x[i] != y[i]) {
+                possible = false;
+                break;
             }
-
-            if (possible)
-                System.out.println("Yes");
-            else
-                System.out.println("No");
         }
 
-        scanner.close();
+        if (possible)
+            cout << "Yes" << endl;
+        else
+            cout << "No" << endl;
     }
+
+    return 0;
 }
 ```
 
