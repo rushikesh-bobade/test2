@@ -55,47 +55,29 @@ Output
 
 ## Solution
 
-**Language:** JavaScript  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T15:25:54.876Z  
+**Submitted:** 2026-07-08T15:26:41.594Z  
 
-```js
-function Wordle(tests) {
-    let t = parseInt(tests[0]);
-    let index = 1;
-    let ans = [];
+```py
+def solve():
+    t = int(input())
 
-    for (let i = 0; i < t; i++) {
-        let n = parseInt(tests[index++]);
-        let s = tests[index++].trim();
+    for _ in range(t):
+        n = int(input())
+        s = input().strip()
 
-        let count = 0;
+        count = 0
 
-        for (let j = 1; j < n; j++) {
-            if (s[j] === s[j - 1]) {
-                count++;
-            }
-        }
+        for i in range(1, n):
+            if s[i] == s[i - 1]:
+                count += 1
 
-        ans.push(count);
-    }
+        print(count)
 
-    console.log(ans.join('\n'));
-}
-
-// Input related code. Please do not change.
-process.stdin.setEncoding('utf8');
-let input = '';
-
-process.stdin.on('data', function(chunk) {
-    input += chunk;
-});
-
-process.stdin.on('end', function() {
-    const tests = input.trim().split('\n');
-    Wordle(tests);
-});
+if __name__ == "__main__":
+    solve()
 ```
 
 ---
