@@ -52,27 +52,23 @@ Output: [0,1]
 
 ## Solution
 
-**Language:** TypeScript  
-**Runtime:** 2 ms (beats 72.99%)  
-**Memory:** 57.2 MB (beats 43.98%)  
-**Submitted:** 2026-07-08T13:56:37.050Z  
+**Language:** Python  
+**Runtime:** 1 ms (beats 61.11%)  
+**Memory:** 20.6 MB (beats 17.74%)  
+**Submitted:** 2026-07-08T13:54:37.289Z  
 
-```ts
-function twoSum(nums: number[], target: number): number[] {
-    const seen = new Map<number, number>();
+```py
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen = {}
 
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i];
+        for i, num in enumerate(nums):
+            complement = target - num
 
-        if (seen.has(complement)) {
-            return [seen.get(complement)!, i];
-        }
+            if complement in seen:
+                return [seen[complement], i]
 
-        seen.set(nums[i], i);
-    }
-
-    return [];
-}
+            seen[num] = i
 ```
 
 ---
