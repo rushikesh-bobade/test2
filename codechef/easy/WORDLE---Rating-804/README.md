@@ -77,7 +77,7 @@ GGBBG
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:37:12.840Z  
+**Submitted:** 2026-07-08T14:37:18.560Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
