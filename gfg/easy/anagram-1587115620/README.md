@@ -33,30 +33,37 @@ s1, s2 consists of lowercase English letters.
 
 ## Solution
 
-**Language:** Python  
+**Language:** JavaScript  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:44:23.743Z  
+**Submitted:** 2026-07-08T14:45:26.702Z  
 
-```py
-class Solution:
-    def areAnagrams(self, s1, s2):
-        if len(s1) != len(s2):
-            return False
-        
-        freq = [0] * 26
-        
-        for ch in s1:
-            freq[ord(ch) - ord('a')] += 1
-        
-        for ch in s2:
-            freq[ord(ch) - ord('a')] -= 1
-        
-        for count in freq:
-            if count != 0:
-                return False
-        
-        return True
+```js
+class Solution {
+    areAnagrams(s1, s2) {
+        if (s1.length !== s2.length) {
+            return false;
+        }
+
+        const freq = new Array(26).fill(0);
+
+        for (let ch of s1) {
+            freq[ch.charCodeAt(0) - 97]++;
+        }
+
+        for (let ch of s2) {
+            freq[ch.charCodeAt(0) - 97]--;
+        }
+
+        for (let count of freq) {
+            if (count !== 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
 ```
 
 ---
