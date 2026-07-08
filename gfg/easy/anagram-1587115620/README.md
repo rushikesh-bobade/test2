@@ -33,38 +33,30 @@ s1, s2 consists of lowercase English letters.
 
 ## Solution
 
-**Language:** C++  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:43:54.067Z  
+**Submitted:** 2026-07-08T14:44:23.743Z  
 
-```cpp
-class Solution {
-  public:
-    bool areAnagrams(string& s1, string& s2) {
-        if (s1.length() != s2.length()) {
-            return false;
-        }
-
-        vector<int> freq(26, 0);
-
-        for (char c : s1) {
-            freq[c - 'a']++;
-        }
-
-        for (char c : s2) {
-            freq[c - 'a']--;
-        }
-
-        for (int count : freq) {
-            if (count != 0) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-};
+```py
+class Solution:
+    def areAnagrams(self, s1, s2):
+        if len(s1) != len(s2):
+            return False
+        
+        freq = [0] * 26
+        
+        for ch in s1:
+            freq[ord(ch) - ord('a')] += 1
+        
+        for ch in s2:
+            freq[ord(ch) - ord('a')] -= 1
+        
+        for count in freq:
+            if count != 0:
+                return False
+        
+        return True
 ```
 
 ---
