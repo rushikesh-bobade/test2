@@ -63,43 +63,42 @@ Output: "A"
 
 ## Solution
 
-**Language:** Kotlin  
-**Runtime:** 5 ms (beats 94.42%)  
-**Memory:** 45.5 MB (beats 93.68%)  
-**Submitted:** 2026-07-08T14:26:32.870Z  
+**Language:** C++  
+**Runtime:** 0 ms  
+**Memory:** 8 MB  
+**Submitted:** 2026-07-08T14:25:21.722Z  
 
-```kt
+```cpp
 class Solution {
-    fun convert(s: String, numRows: Int): String {
-        if (numRows == 1 || numRows >= s.length) {
-            return s
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1 || numRows >= s.length()) {
+            return s;
         }
 
-        val rows = Array(numRows) { StringBuilder() }
+        vector<string> rows(numRows);
+        int currentRow = 0;
+        int direction = -1;
 
-        var currentRow = 0
-        var direction = -1
+        for (char c : s) {
+            rows[currentRow] += c;
 
-        for (ch in s) {
-            rows[currentRow].append(ch)
-
-            // Change direction at top and bottom rows
+            // Change direction at first and last row
             if (currentRow == 0 || currentRow == numRows - 1) {
-                direction *= -1
+                direction *= -1;
             }
 
-            currentRow += direction
+            currentRow += direction;
         }
 
-        val result = StringBuilder()
-
-        for (row in rows) {
-            result.append(row)
+        string result = "";
+        for (string row : rows) {
+            result += row;
         }
 
-        return result.toString()
+        return result;
     }
-}
+};
 ```
 
 ---
