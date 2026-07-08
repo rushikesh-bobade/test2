@@ -41,47 +41,31 @@ Output: 1
 
 ## Solution
 
-**Language:** Java  
-**Runtime:** 6 ms (beats 5.01%)  
-**Memory:** 77 MB (beats 95.80%)  
-**Submitted:** 2026-07-08T15:47:29.096Z  
+**Language:** Python  
+**Runtime:** 59 ms (beats 52.11%)  
+**Memory:** 29.7 MB (beats 36.99%)  
+**Submitted:** 2026-07-08T15:48:03.797Z  
 
-```java
-class Solution {
-    public int maxArea(int[] height) {
-        int most=0;
-        int left=0,right=height.length-1;
+```py
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        left = 0
+        right = len(height) - 1
+        max_water = 0
 
-       while(left<right){
-        int h=Math.min(height[left],height[right]);
-        int w= right-left;
-        int area=h*w;
-        most=Math.max(area,most);
+        while left < right:
+            width = right - left
+            current_height = min(height[left], height[right])
+            area = width * current_height
 
-        if(height[left]<height[right]){
-            left++;
-        }else{
-            right --;
-        }
-       }
+            max_water = max(max_water, area)
 
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
 
-
-
-
-        //Brute force approach
-        // for(int i=0;i<height.length;i++){
-        //     for(int j=i+1;j<height.length;j++){
-        //         int heightt = Math.min(height[i],height[j]);
-        //         int width=j-i;
-        //         int count=heightt*width;
-        //         most=Math.max(count,most);
-        //     }
-            
-        // }
-        return most;
-    }
-}
+        return max_water
 ```
 
 ---
