@@ -47,31 +47,33 @@ Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 
 ## Solution
 
-**Language:** Python  
-**Runtime:** 17 ms (beats 10.82%)  
-**Memory:** 19.3 MB (beats 52.83%)  
-**Submitted:** 2026-07-08T14:52:10.212Z  
+**Language:** C++  
+**Runtime:** 0 ms  
+**Memory:** 7.7 MB  
+**Submitted:** 2026-07-08T14:51:33.624Z  
 
-```py
-class Solution:
-    def isPalindrome(self, x: int) -> bool:
-        # Negative numbers are not palindrome
-        if x < 0:
-            return False
-        
-        # Numbers ending with 0 (except 0) are not palindrome
-        if x % 10 == 0 and x != 0:
-            return False
-        
-        original = x
-        reversed_num = 0
-        
-        while x > 0:
-            digit = x % 10
-            reversed_num = reversed_num * 10 + digit
-            x //= 10
-        
-        return original == reversed_num
+```cpp
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        // Negative numbers are not palindrome
+        if (x < 0) return false;
+
+        // Numbers ending with 0 (except 0) are not palindrome
+        if (x % 10 == 0 && x != 0) return false;
+
+        int reversed = 0;
+        int original = x;
+
+        while (x > 0) {
+            int digit = x % 10;
+            reversed = reversed * 10 + digit;
+            x /= 10;
+        }
+
+        return original == reversed;
+    }
+};
 ```
 
 ---
