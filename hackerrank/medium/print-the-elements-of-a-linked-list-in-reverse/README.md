@@ -50,134 +50,38 @@ The input of each test case is as follows:
 
 ## Solution
 
-**Language:** Java  
+**Language:** Python  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T12:10:41.849Z  
+**Submitted:** 2026-07-08T12:12:11.918Z  
 
-```java
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+```py
 
-class SinglyLinkedListNode {
-    public int data;
-    public SinglyLinkedListNode next;
 
-    public SinglyLinkedListNode(int nodeData) {
-        this.data = nodeData;
-        this.next = null;
-    }
-}
+#
+# Complete the 'reversePrint' function below.
+#
+# The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+#
 
-class SinglyLinkedList {
-    public SinglyLinkedListNode head;
-    public SinglyLinkedListNode tail;
+#
+# For your reference:
+#
+# SinglyLinkedListNode:
+#     int data
+#     SinglyLinkedListNode next
+#
+#
 
-    public SinglyLinkedList() {
-        this.head = null;
-        this.tail = null;
-    }
+def reversePrint(llist):
+    stack = []
 
-    public void insertNode(int nodeData) {
-        SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+    while llist:
+        stack.append(llist.data)
+        llist = llist.next
 
-        if (this.head == null) {
-            this.head = node;
-        } else {
-            this.tail.next = node;
-        }
-
-        this.tail = node;
-    }
-}
-
-class SinglyLinkedListPrintHelper {
-    public static void printList(SinglyLinkedListNode node, String sep) {
-        while (node != null) {
-            System.out.print(node.data);
-
-            node = node.next;
-
-            if (node != null) {
-                System.out.print(sep);
-            }
-        }
-    }
-}
-
-class Result {
-
-    /*
-     * Complete the 'reversePrint' function below.
-     *
-     * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
-     */
-
-    /*
-     * For your reference:
-     *
-     * SinglyLinkedListNode {
-     *     int data;
-     *     SinglyLinkedListNode next;
-     * }
-     *
-     */
-
-public static void reversePrint(SinglyLinkedListNode llist) {
-    Stack<Integer> stack = new Stack<>();
-
-    while (llist != null) {
-        stack.push(llist.data);
-        llist = llist.next;
-    }
-
-    while (!stack.isEmpty()) {
-        System.out.println(stack.pop());
-    }
-}
-
-}
-
-public class Solution {
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-        int tests = Integer.parseInt(bufferedReader.readLine().trim());
-
-        IntStream.range(0, tests).forEach(testsItr -> {
-            try {
-                SinglyLinkedList llist = new SinglyLinkedList();
-
-                int llistCount = Integer.parseInt(bufferedReader.readLine().trim());
-
-                IntStream.range(0, llistCount).forEach(i -> {
-                    try {
-                        int llistItem = Integer.parseInt(bufferedReader.readLine().trim());
-
-                        llist.insertNode(llistItem);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
-
-                Result.reversePrint(llist.head);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
-        bufferedReader.close();
-    }
-}
+    while stack:
+        print(stack.pop())
 
 ```
 
