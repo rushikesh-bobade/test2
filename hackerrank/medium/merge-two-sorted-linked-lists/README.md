@@ -49,111 +49,107 @@ The next $m$ lines contain an integer each, the elements of the second linked li
 
 ## Solution
 
-**Language:** Java  
+**Language:** Go  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:49:20.731Z  
+**Submitted:** 2026-07-08T14:48:38.157Z  
 
-```java
-import java.io.*;
-import java.util.*;
+```go
+package main
 
-public class Solution {
+import (
+    "bufio"
+    "fmt"
+    "os"
+)
 
-    static class SinglyLinkedListNode {
-        int data;
-        SinglyLinkedListNode next;
+type SinglyLinkedListNode struct {
+    data int32
+    next *SinglyLinkedListNode
+}
 
-        SinglyLinkedListNode(int data) {
-            this.data = data;
-            this.next = null;
-        }
+type SinglyLinkedList struct {
+    head *SinglyLinkedListNode
+    tail *SinglyLinkedListNode
+}
+
+func (list *SinglyLinkedList) insertNode(data int32) {
+    node := &SinglyLinkedListNode{data: data}
+
+    if list.head == nil {
+        list.head = node
+    } else {
+        list.tail.next = node
     }
 
-    static SinglyLinkedListNode mergeLists(
-            SinglyLinkedListNode head1,
-            SinglyLinkedListNode head2) {
+    list.tail = node
+}
 
-        SinglyLinkedListNode dummy = new SinglyLinkedListNode(0);
-        SinglyLinkedListNode tail = dummy;
+func mergeLists(head1 *SinglyLinkedListNode, head2 *SinglyLinkedListNode) *SinglyLinkedListNode {
+    dummy := &SinglyLinkedListNode{}
+    current := dummy
 
-        while (head1 != null && head2 != null) {
-
-            if (head1.data <= head2.data) {
-                tail.next = head1;
-                head1 = head1.next;
-            } else {
-                tail.next = head2;
-                head2 = head2.next;
-            }
-
-            tail = tail.next;
+    for head1 != nil && head2 != nil {
+        if head1.data <= head2.data {
+            current.next = head1
+            head1 = head1.next
+        } else {
+            current.next = head2
+            head2 = head2.next
         }
-
-        if (head1 != null)
-            tail.next = head1;
-        else
-            tail.next = head2;
-
-        return dummy.next;
+        current = current.next
     }
 
-    static SinglyLinkedListNode insert(
-            SinglyLinkedListNode head, int data) {
-
-        SinglyLinkedListNode node = new SinglyLinkedListNode(data);
-
-        if (head == null)
-            return node;
-
-        SinglyLinkedListNode temp = head;
-
-        while (temp.next != null)
-            temp = temp.next;
-
-        temp.next = node;
-
-        return head;
+    if head1 != nil {
+        current.next = head1
+    } else {
+        current.next = head2
     }
 
-    static void printList(SinglyLinkedListNode head) {
+    return dummy.next
+}
 
-        while (head != null) {
-            System.out.print(head.data + " ");
-            head = head.next;
+func printList(node *SinglyLinkedListNode, writer *bufio.Writer) {
+    for node != nil {
+        fmt.Fprint(writer, node.data)
+        if node.next != nil {
+            fmt.Fprint(writer, " ")
         }
+        node = node.next
     }
+    fmt.Fprintln(writer)
+}
 
-    public static void main(String[] args) throws Exception {
+func main() {
+    reader := bufio.NewReader(os.Stdin)
+    writer := bufio.NewWriter(os.Stdout)
+    defer writer.Flush()
 
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(System.in));
+    var t int
+    fmt.Fscan(reader, &t)
 
-        int t = Integer.parseInt(br.readLine());
+    for ; t > 0; t-- {
+        var n int
+        fmt.Fscan(reader, &n)
 
-        while (t-- > 0) {
-
-            int n = Integer.parseInt(br.readLine());
-            SinglyLinkedListNode head1 = null;
-
-            for (int i = 0; i < n; i++) {
-                head1 = insert(head1,
-                        Integer.parseInt(br.readLine()));
-            }
-
-            int m = Integer.parseInt(br.readLine());
-            SinglyLinkedListNode head2 = null;
-
-            for (int i = 0; i < m; i++) {
-                head2 = insert(head2,
-                        Integer.parseInt(br.readLine()));
-            }
-
-            SinglyLinkedListNode result = mergeLists(head1, head2);
-
-            printList(result);
-            System.out.println();
+        list1 := SinglyLinkedList{}
+        for i := 0; i < n; i++ {
+            var x int32
+            fmt.Fscan(reader, &x)
+            list1.insertNode(x)
         }
+
+        fmt.Fscan(reader, &n)
+
+        list2 := SinglyLinkedList{}
+        for i := 0; i < n; i++ {
+            var x int32
+            fmt.Fscan(reader, &x)
+            list2.insertNode(x)
+        }
+
+        result := mergeLists(list1.head, list2.head)
+        printList(result, writer)
     }
 }
 
