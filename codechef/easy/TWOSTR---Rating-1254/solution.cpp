@@ -1,19 +1,32 @@
-t = int(input())
+import java.util.Scanner;
 
-while t > 0:
-    x = input()
-    y = input()
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
 
-    possible = True
+        while (t-- > 0) {
+            String x = scanner.next();
+            String y = scanner.next();
 
-    for i in range(len(x)):
-        if x[i] != '?' and y[i] != '?' and x[i] != y[i]:
-            possible = False
-            break
+            boolean possible = true;
 
-    if possible:
-        print("Yes")
-    else:
-        print("No")
+            for (int i = 0; i < x.length(); i++) {
+                char a = x.charAt(i);
+                char b = y.charAt(i);
 
-    t -= 1
+                if (a != '?' && b != '?' && a != b) {
+                    possible = false;
+                    break;
+                }
+            }
+
+            if (possible)
+                System.out.println("Yes");
+            else
+                System.out.println("No");
+        }
+
+        scanner.close();
+    }
+}
