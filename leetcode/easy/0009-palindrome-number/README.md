@@ -48,30 +48,25 @@ Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 ## Solution
 
 **Language:** C++  
-**Runtime:** 0 ms  
-**Memory:** 7.7 MB  
-**Submitted:** 2026-07-08T14:51:33.624Z  
+**Runtime:** 9 ms (beats 7.28%)  
+**Memory:** 8.5 MB (beats 92.65%)  
+**Submitted:** 2026-07-08T14:52:40.360Z  
 
 ```cpp
 class Solution {
 public:
     bool isPalindrome(int x) {
-        // Negative numbers are not palindrome
-        if (x < 0) return false;
-
-        // Numbers ending with 0 (except 0) are not palindrome
-        if (x % 10 == 0 && x != 0) return false;
+        if (x < 0 || (x % 10 == 0 && x != 0))
+            return false;
 
         int reversed = 0;
-        int original = x;
 
-        while (x > 0) {
-            int digit = x % 10;
-            reversed = reversed * 10 + digit;
+        while (x > reversed) {
+            reversed = reversed * 10 + x % 10;
             x /= 10;
         }
 
-        return original == reversed;
+        return x == reversed || x == reversed / 10;
     }
 };
 ```
