@@ -49,46 +49,113 @@ The next $m$ lines contain an integer each, the elements of the second linked li
 
 ## Solution
 
-**Language:** Python  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-07-08T14:46:58.329Z  
+**Submitted:** 2026-07-08T14:47:58.569Z  
 
-```py
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
 
+class SinglyLinkedListNode {
+public:
+    int data;
+    SinglyLinkedListNode* next;
 
-# Complete the mergeLists function below.
+    SinglyLinkedListNode(int node_data) {
+        data = node_data;
+        next = nullptr;
+    }
+};
 
-#
-# For your reference:
-#
-# SinglyLinkedListNode:
-#     int data
-#     SinglyLinkedListNode next
-#
-#
-def mergeLists(head1, head2):
-    # Dummy node to simplify handling the head
-    dummy = SinglyLinkedListNode(0)
-    current = dummy
+class SinglyLinkedList {
+public:
+    SinglyLinkedListNode* head;
+    SinglyLinkedListNode* tail;
 
-    while head1 and head2:
-        if head1.data <= head2.data:
-            current.next = head1
-            head1 = head1.next
-        else:
-            current.next = head2
-            head2 = head2.next
-        
-        current = current.next
+    SinglyLinkedList() {
+        head = nullptr;
+        tail = nullptr;
+    }
 
-    # Attach remaining nodes
-    if head1:
-        current.next = head1
-    else:
-        current.next = head2
+    void insert_node(int node_data) {
+        SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
 
-    return dummy.next
+        if (!head) {
+            head = node;
+        } else {
+            tail->next = node;
+        }
+
+        tail = node;
+    }
+};
+
+SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+    SinglyLinkedListNode* dummy = new SinglyLinkedListNode(0);
+    SinglyLinkedListNode* curr = dummy;
+
+    while (head1 && head2) {
+        if (head1->data <= head2->data) {
+            curr->next = head1;
+            head1 = head1->next;
+        } else {
+            curr->next = head2;
+            head2 = head2->next;
+        }
+        curr = curr->next;
+    }
+
+    if (head1)
+        curr->next = head1;
+    else
+        curr->next = head2;
+
+    return dummy->next;
+}
+
+void printList(SinglyLinkedListNode* node) {
+    while (node) {
+        cout << node->data;
+        if (node->next)
+            cout << " ";
+        node = node->next;
+    }
+}
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        SinglyLinkedList list1;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            list1.insert_node(x);
+        }
+
+        cin >> n;
+
+        SinglyLinkedList list2;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            list2.insert_node(x);
+        }
+
+        SinglyLinkedListNode* result = mergeLists(list1.head, list2.head);
+
+        printList(result);
+        cout << "\n";
+    }
+
+    return 0;
+}
 
 ```
 
